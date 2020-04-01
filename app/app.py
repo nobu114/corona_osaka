@@ -1,4 +1,5 @@
 from flask import Flask, render_template
+from models.models import corona_data
 
 
 app = Flask(__name__)
@@ -11,7 +12,8 @@ def hello():
 
 @app.route("/index")
 def index():
-    return render_template("index.html")
+    all_data = corona_data.query.all()
+    return render_template("index.html", all_data=all_data)
 
 
 if __name__ == "__main__":
