@@ -2,28 +2,27 @@ from sqlalchemy import (
     Column, Integer, String, Text, DateTime
 )
 from models.database import Base
-from datetime import datetime
 
 
 class corona_data(Base):
     __tablename__ = "corona_data"
-    id = Column(Integer, primary_key=True)
-    gender = Column(Text)
-    age = Column(Text)
-    place = Column(Text)
-    date_of_onset = Column(DateTime)
-    fever = Column(Integer)
-    cough = Column(Integer)
-    sputum = Column(Integer)
-    nasal_discharge = Column(Integer)
-    headache = Column(Integer)
-    sore_throat = Column(Integer)
-    dyspnea = Column(Integer)
-    lethargy = Column(Integer)
-    taste_disorder = Column(Integer)
-    olfactory_impairment = Column(Integer)
-    pneumonia = Column(Integer)
-    asymptomatic = Column(Integer)
+    index = Column(Integer, primary_key=True)
+    gender = Column(Text, nullable=True)
+    age = Column(Text, nullable=True)
+    place = Column(Text, nullable=True)
+    date_of_onset = Column(DateTime, nullable=True)
+    fever = Column(Integer, nullable=True)
+    cough = Column(Integer, nullable=True)
+    sputum = Column(Integer, nullable=True)
+    nasal_discharge = Column(Integer, nullable=True)
+    headache = Column(Integer, nullable=True)
+    sore_throat = Column(Integer, nullable=True)
+    dyspnea = Column(Integer, nullable=True)
+    lethargy = Column(Integer, nullable=True)
+    taste_disorder = Column(Integer, nullable=True)
+    olfactory_impairment = Column(Integer, nullable=True)
+    pneumonia = Column(Integer, nullable=True)
+    asymptomatic = Column(Integer, nullable=True)
 
     def __init__(
             self, gender=None, age=None, place=None, date_of_onset=None,
