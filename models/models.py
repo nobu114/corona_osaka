@@ -48,4 +48,4 @@ class corona_data(Base):
         self.asymptomatic = asymptomatic
 
     def __repr__(self):
-        return "<Title %r>" % (self.index)
+        return "<Title %r>" % (self.gender)

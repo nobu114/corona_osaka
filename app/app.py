@@ -13,8 +13,9 @@ def hello():
 @app.route("/index")
 def index():
     all_data = corona_data.query.all()
+    print(all_data)
     return render_template("index.html", all_data=all_data)
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run()
