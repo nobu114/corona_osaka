@@ -3,30 +3,27 @@
         <title>テスト</title>
     </head>
     <body>
-    <h1>大阪府の新型コロナウイルス感染者一覧</h1>
-    {% for data in all_data %}
+    <h1>大阪府の新型コロナウイルス感染者一覧</h>
     <table border="1">
-        <thead>
-            <tr>
-                <th>性別</th>
-                <th>年齢</th>
-                <th>居住地</th>
-                <th>発症日</th>
-                <th>発熱</th>
-                <th>咳</th>
-                <th>痰</th>
-                <th>鼻汁</th>
-                <th>頭痛</th>
-                <th>咽頭痛</th>
-                <th>呼吸困難</th>
-                <th>倦怠感</th>
-                <th>味覚障害</th>
-                <th>嗅覚障害</th>
-                <th>肺炎</th>
-                <th>無症状</th>
-            </tr>
-        </thead>
-        <tbody>
+        <tr>
+            <th>性別</th>
+            <th>年齢</th>
+            <th>居住地</th>
+            <th>発症日</th>
+            <th>発熱</th>
+            <th>咳</th>
+            <th>痰</th>
+            <th>鼻汁</th>
+            <th>頭痛</th>
+            <th>咽頭痛</th>
+            <th>呼吸困難</th>
+            <th>倦怠感</th>
+            <th>味覚障害</th>
+            <th>嗅覚障害</th>
+            <th>肺炎</th>
+            <th>無症状</th>
+        </tr>
+        {% for data in all_data %}
             <tr>
                 <td>{{data.gender}}</td>
                 <td>{{data.age}}</td>
@@ -45,8 +42,7 @@
                 <td>{{data.pneumonia}}</td>
                 <td>{{data.asymptomatic}}</td>
             </tr>
-        </tbody>
+        {% endfor %}
     </table>
-    {% endfor %}
     </body>
 </html>
