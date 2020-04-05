@@ -24,28 +24,5 @@ class corona_data(Base):
     pneumonia = Column(Text)
     asymptomatic = Column(Text)
 
-    def __init__(
-            self, gender=None, age=None, place=None, date_of_onset=None,
-            fever=None, cough=None, sputum=None, nasal_discharge=None,
-            headache=None, sore_throat=None, dyspnea=None, lethargy=None,
-            taste_disorder=None, olfactory_impairment=None, pneumonia=None,
-            asymptomatic=None):
-        self.gender = gender
-        self.age = age
-        self.place = place
-        self.date_of_onset = date_of_onset
-        self.fever = fever
-        self.cough = cough
-        self.sputum = sputum
-        self.nasal_discharge = nasal_discharge
-        self.headache = headache
-        self.sore_throat = sore_throat
-        self.dyspnea = dyspnea
-        self.lethargy = lethargy
-        self.taste_disorder = taste_disorder
-        self.olfactory_impairment = olfactory_impairment
-        self.pneumonia = pneumonia
-        self.asymptomatic = asymptomatic
-
     def __repr__(self):
-        return "<Title %r>" % (self.gender)
+        return f"<Index {self.index}>"
