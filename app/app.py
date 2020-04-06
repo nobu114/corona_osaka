@@ -13,9 +13,11 @@ def hello():
 @app.route("/index")
 def index():
     all_data = corona_data.query.all()
+    index = []
     place = []
     for data in all_data:
         place.append(data.place)
+        index.append(data.index)
         # print(data.place)
         # print(type(data.place))
     # print(place.count("大阪市"))
@@ -45,5 +47,7 @@ def index():
     }
     # print(number_of_infeted_people)
     # print(type(place))
+    index = len(index)
     return render_template(
-        "index.html", all_data=all_data, np=number_of_infeted_people)
+        "index.html", all_data=all_data, np=number_of_infeted_people,
+        index=index)
