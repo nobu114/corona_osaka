@@ -43,7 +43,7 @@ def index():
         "富田林市": place.count("富田林市"), "大阪狭山市": place.count("大阪狭山市"),
         "河内長野市": place.count("河内長野市")
     }
-    print(number_of_infeted_people)
+    # print(number_of_infeted_people)
     # print(type(place))
     return render_template(
         "index.html", all_data=all_data, np=number_of_infeted_people)
