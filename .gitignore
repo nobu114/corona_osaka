@@ -4,3 +4,5 @@ models/__pycache__/
 app/__pycache__
 __pycache__
 hoge.py
+app/hogepath.py
+driver/
