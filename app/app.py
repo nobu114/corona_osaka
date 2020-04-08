@@ -1,8 +1,10 @@
 from flask import Flask, render_template
 from models.models import corona_data
-
+import models.update
 
 app = Flask(__name__)
+
+models.update.update_database()
 
 
 @app.route("/")

@@ -7,22 +7,22 @@ from models.database import Base
 class corona_data(Base):
     __tablename__ = "corona_data"
     index = Column(Integer, primary_key=True)
-    gender = Column(Text)
     age = Column(Text)
+    gender = Column(Text)
     place = Column(Text)
     date_of_onset = Column(Text)
-    fever = Column(Text)
-    cough = Column(Text)
-    sputum = Column(Text)
-    nasal_discharge = Column(Text)
-    headache = Column(Text)
-    sore_throat = Column(Text)
-    dyspnea = Column(Text)
-    lethargy = Column(Text)
-    taste_disorder = Column(Text)
-    olfactory_impairment = Column(Text)
-    pneumonia = Column(Text)
-    asymptomatic = Column(Text)
+    symptoms = Column(Text)
+    hospitalization = Column(Text)
+
+    def __init__(
+            self, age=None, gender=None, place=None, date_of_onset=None,
+            symptoms=None, hospitalization=None):
+        self.age = age
+        self.gender = gender
+        self.place = place
+        self.date_of_onset = date_of_onset
+        self.symptoms = symptoms
+        self.hospitalization = hospitalization
 
     def __repr__(self):
         return f"<Index {self.index}>"
