@@ -16,10 +16,14 @@ def job():
 
 
 def job_manager():
-    schedule.every.day.at("4:00").do(job)
+    schedule.every().day.at("04:00").do(job)
     while True:
         schedule.run_pending()
         time.sleep(1)
+
+
+thread_1 = threading.Thread(target=job_manager)
+thread_1.start()
 
 
 @app.route("/")
