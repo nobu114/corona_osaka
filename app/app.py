@@ -1,10 +1,25 @@
 from flask import Flask, render_template
+import schedule
+
 from models.models import corona_data
 import models.update
 
+import threading
+import time
+
+
 app = Flask(__name__)
 
-models.update.update_database()
+
+def job():
+    models.update.update_database()
+
+
+def job_manager():
+    schedule.every.day.at("4:00").do(job)
+    while True:
+        schedule.run_pending()
+        time.sleep(1)
 
 
 @app.route("/")
