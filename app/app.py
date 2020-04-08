@@ -50,4 +50,5 @@ def index():
     index = len(index)
     return render_template(
         "index.html", all_data=all_data, np=number_of_infeted_people,
-        index=index)
+        index=index
+    )

@@ -6,3 +6,4 @@ __pycache__
 hoge.py
 app/hogepath.py
 driver/
+/models/corona.xlsx
