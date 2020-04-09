@@ -1,10 +1,14 @@
+# -*- coding: utf-8 -*-
+
 from openpyxl import load_workbook
 import requests
+from sqlalchemy.dialects.postgresql import insert
 
 import datetime
 import pathlib
+import os
 
-from models.database import db_session, init_db
+from models.database import engine
 from models.models import corona_data
 
 
@@ -34,20 +38,31 @@ def update_database():
                 value = value.date()
             r_tpl += (value, )
         r_list.append(r_tpl)
-    items = []
-    """
-    init_db()
-    for i in range(0, ws.max_row - 2):
-        data = corona_data()
-        data.index = r_list[i][0]
-        data.publish_d = r_list[i][1]
-        data.age = r_list[i][2]
-        data.gender = r_list[i][3]
-        data.place = r_list[i][4]
-        data.date_of_onset = r_list[i][5]
-        data.symptoms = r_list[i][6]
-        data.hospitalization = r_list[i][7]
-        items.append(data)
-    db_session.add_all(items)
-    db_session.commit()
-    """
+    insert_stmt = insert(corona_data)
+    set_ = dict(
+        index=insert_stmt.excluded.index,
+        publish_d=insert_stmt.excluded.publish_d,
+        age=insert_stmt.excluded.age,
+        gender=insert_stmt.excluded.gender,
+        place=insert_stmt.excluded.place,
+        date_of_onset=insert_stmt.excluded.date_of_onset,
+        symptoms=insert_stmt.excluded.symptoms,
+        hospitalization=insert_stmt.excluded.hospitalization
+    )
+    insert_stmt = insert_stmt.on_conflict_do_update(
+        index_elements=["index"], set_=set_
+    )
+    with engine.connect() as conn:
+        values = []
+        for i in range(0, ws.max_row - 2):
+            data = {}
+            data["index"] = r_list[i][0]
+            data["publish_d"] = r_list[i][1]
+            data["age"] = r_list[i][2]
+            data["gender"] = r_list[i][3]
+            data["place"] = r_list[i][4]
+            data["date_of_onset"] = r_list[i][5]
+            data["symptoms"] = r_list[i][6]
+            data["hospitalization"] = r_list[i][7]
+            values.append(data)
+        conn.execute(insert_stmt, values)

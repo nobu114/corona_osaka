@@ -11,7 +11,7 @@ class corona_data(Base):
     age = Column(Text)
     gender = Column(Text)
     place = Column(Text)
-    date_of_onset = Column(DateTime)
+    date_of_onset = Column(Text)
     symptoms = Column(Text)
     hospitalization = Column(Text)
 

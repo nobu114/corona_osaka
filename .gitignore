@@ -8,3 +8,4 @@ app/hogepath.py
 driver/
 models/corona.xlsx
 tmp/
+corona_data Session.sql
