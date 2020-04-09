@@ -4,9 +4,11 @@ from sqlalchemy.ext.declarative import declarative_base
 import os
 
 
-databese_file = os.path.join(
-    os.path.abspath(os.path.dirname(__file__)), 'corona.db')
-engine = create_engine('sqlite:///' + databese_file, convert_unicode=True)
+user_name = os.environ["db_user_name"]
+password = os.environ["db_password"]
+engine = create_engine(
+    f"postgresql://{user_name}:{password}@localhost:5432/corona"
+)
 db_session = scoped_session(
     sessionmaker(
         autocommit=False, autoflush=False, bind=engine
