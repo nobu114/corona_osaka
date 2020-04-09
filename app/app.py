@@ -16,12 +16,17 @@ def index():
     all_data = corona_data.query.all()
     index = []
     place = []
+    hospitalization = []
     for data in all_data:
         place.append(data.place)
         index.append(data.index)
-        # print(data.place)
-        # print(type(data.place))
-    # print(place.count("大阪市"))
+        hospitalization.append(data.hospitalization)
+    hospitalization_dict = {
+        "入院中": hospitalization.count("入院中"),
+        "入院調整中": hospitalization.count("入院調整中"),
+        "退院": hospitalization.count("退院"),
+        "死亡退院": hospitalization.count("死亡退院")
+    }
     number_of_infeted_people = {
         "大阪市": place.count("大阪市"), "堺市": place.count("堺市"),
         "能勢町": place.count("能勢町"), "豊能町": place.count("豊能町"),
@@ -46,10 +51,10 @@ def index():
         "富田林市": place.count("富田林市"), "大阪狭山市": place.count("大阪狭山市"),
         "河内長野市": place.count("河内長野市")
     }
-    # print(number_of_infeted_people)
-    # print(type(place))
-    index = len(index)
+    total = len(index)
+    positivity_pepople = (hospitalization_dict["入院中"]
+                          + hospitalization_dict["入院調整中"])
     return render_template(
         "index.html", all_data=all_data, np=number_of_infeted_people,
-        index=index
+        total=total, positivity_pepople=positivity_pepople
     )
