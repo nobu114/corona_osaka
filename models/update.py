@@ -17,9 +17,13 @@ def update_database():
         "attach/23711/00346644/youseisyajyouhou.xlsx"
     )
     download_file = requests.get(url)
+    # ファイルを保存するパスの指定と存在確認
     path = pathlib.Path(__file__).joinpath(
-        "..", "..", "tmp", "corona.xlsx"
+        "..", "..", "tmp"
     ).resolve()
+    if path.exists() is False:
+        path.mkdir()
+    path = path.joinpath("corona.xlsx")
     with path.open(mode="wb") as f:
         f.write(download_file.content)
     wb = load_workbook(filename=str(path), data_only=True)
@@ -33,7 +37,7 @@ def update_database():
                 value = datetime.date(
                     year=1900, month=1, day=1
                 ) + datetime.timedelta(days=value - 2)
-            elif isinstance(value, datetime.datetime):
+            if isinstance(value, datetime.datetime):
                 value = value.date()
             r_tpl += (value, )
         r_list.append(r_tpl)
