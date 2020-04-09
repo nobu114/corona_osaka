@@ -6,7 +6,6 @@ from sqlalchemy.dialects.postgresql import insert
 
 import datetime
 import pathlib
-import os
 
 from models.database import engine
 from models.models import corona_data
