@@ -1,6 +1,9 @@
 from flask import Flask, render_template
+from sqlalchemy import desc
 
 from models.models import corona_data
+
+# import datetime
 
 
 app = Flask(__name__)
@@ -14,12 +17,30 @@ def hello():
 @app.route("/index")
 def index():
     all_data = corona_data.query.all()
+    latest_pd = corona_data.query.order_by(
+        desc(corona_data.publish_d)
+    ).limit(1)
+    for pd in latest_pd:
+        hoge = pd.publish_d.date().strftime(
+            "%Y年%m月%d日"
+        )
+        # print(hoge)
     index = []
+    publish_d = []
+    age = []
+    gender = []
     place = []
+    date_of_onset = []
+    symptoms = []
     hospitalization = []
     for data in all_data:
-        place.append(data.place)
         index.append(data.index)
+        publish_d.append(data.publish_d)
+        age.append(data.age)
+        gender.append(data.gender)
+        place.append(data.place)
+        date_of_onset.append(data.date_of_onset)
+        symptoms.append(data.symptoms)
         hospitalization.append(data.hospitalization)
     hospitalization_dict = {
         "入院中": hospitalization.count("入院中"),
@@ -54,7 +75,10 @@ def index():
     total = len(index)
     positivity_pepople = (hospitalization_dict["入院中"]
                           + hospitalization_dict["入院調整中"])
+    print(hoge)
+    # print(type(hoge[0]))
     return render_template(
         "index.html", all_data=all_data, np=number_of_infeted_people,
-        total=total, positivity_pepople=positivity_pepople
+        total=total, positivity_pepople=positivity_pepople,
+        date=hoge
     )

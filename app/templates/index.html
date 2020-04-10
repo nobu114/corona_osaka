@@ -1,12 +1,16 @@
+<!DOCTYPE html>
 <html>
     <head>
+        <meta charset="utf-8">
         <title>テスト</title>
     </head>
     <body>
-        <h1>大阪府の累計感染者数:{{total}}</h1>
-        <h1>現在の陽性者数:{{positivity_pepople}}</h1>
-        <h1>前日比</h1>
-        <h2>市町村ごとの感染者数</h2>
+        <h1>大阪府の現在の感染者数</h1>
+        <p>{{date}}更新</p>
+        <p>現在の陽性者数累計:{{total}}</p>
+        <p>現在の陽性者数:{{positivity_pepople}}</p>
+        <p>前日比</p>
+        <h1>市町村ごとの感染者数</h1>
         <table border="1">
             <tr>
                 <th>市町村</th>
@@ -185,7 +189,7 @@
                 <td>{{np["河内長野市"]}}</td>
             </tr>
             </table>
-            <h2>大阪府の新型コロナウイルス感染者一覧</h2>
+            <h1>大阪府の新型コロナウイルス感染者一覧</h1>
         <table border="1">
             <tr>
                 <th>番号</th>
