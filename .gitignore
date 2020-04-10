@@ -1,2 +1,11 @@
 env/
 .vscode/
+models/__pycache__/
+app/__pycache__
+__pycache__
+hoge.py
+app/hogepath.py
+driver/
+models/corona.xlsx
+tmp/
+corona_data Session.sql
