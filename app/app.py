@@ -1,5 +1,5 @@
 from flask import Flask, render_template
-from sqlalchemy import desc
+from sqlalchemy import desc, or_
 
 from models.models import corona_data
 
@@ -17,37 +17,21 @@ def hello():
 @app.route("/index")
 def index():
     all_data = corona_data.query.all()
-    latest_pd = corona_data.query.order_by(
-        desc(corona_data.publish_d)
-    ).limit(1)
-    for pd in latest_pd:
-        hoge = pd.publish_d.date().strftime(
-            "%Y年%m月%d日"
+    total = corona_data.query.count()
+    positivity_pepople = corona_data.query.filter(
+        or_(
+            corona_data.hospitalization == "入院中",
+            corona_data.hospitalization == "入院調整中"
         )
-        # print(hoge)
-    index = []
-    publish_d = []
-    age = []
-    gender = []
+    ).count()
+    update = corona_data.query.order_by(
+        desc(corona_data.publish_d)
+    ).limit(1).first().publish_d.date().strftime(
+        "%Y年%m月%d日"
+    )
     place = []
-    date_of_onset = []
-    symptoms = []
-    hospitalization = []
     for data in all_data:
-        index.append(data.index)
-        publish_d.append(data.publish_d)
-        age.append(data.age)
-        gender.append(data.gender)
         place.append(data.place)
-        date_of_onset.append(data.date_of_onset)
-        symptoms.append(data.symptoms)
-        hospitalization.append(data.hospitalization)
-    hospitalization_dict = {
-        "入院中": hospitalization.count("入院中"),
-        "入院調整中": hospitalization.count("入院調整中"),
-        "退院": hospitalization.count("退院"),
-        "死亡退院": hospitalization.count("死亡退院")
-    }
     number_of_infeted_people = {
         "大阪市": place.count("大阪市"), "堺市": place.count("堺市"),
         "能勢町": place.count("能勢町"), "豊能町": place.count("豊能町"),
@@ -72,13 +56,8 @@ def index():
         "富田林市": place.count("富田林市"), "大阪狭山市": place.count("大阪狭山市"),
         "河内長野市": place.count("河内長野市")
     }
-    total = len(index)
-    positivity_pepople = (hospitalization_dict["入院中"]
-                          + hospitalization_dict["入院調整中"])
-    print(hoge)
-    # print(type(hoge[0]))
     return render_template(
         "index.html", all_data=all_data, np=number_of_infeted_people,
         total=total, positivity_pepople=positivity_pepople,
-        date=hoge
+        date=update
     )
