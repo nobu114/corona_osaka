@@ -16,7 +16,9 @@ def hello():
 
 @app.route("/index")
 def index():
-    all_data = corona_data.query.all()
+    all_data = corona_data.query.order_by(
+        corona_data.index
+    ).all()
     total = corona_data.query.count()
     positivity_pepople = corona_data.query.filter(
         or_(
@@ -26,7 +28,18 @@ def index():
     ).count()
     update = corona_data.query.order_by(
         desc(corona_data.publish_d)
-    ).limit(1).first().publish_d.date().strftime(
+    ).limit(1).first().publish_d.date()
+    # prev = update - datetime.timedelta(days=1)
+    cttpd = corona_data.query.filter(
+        corona_data.publish_d == update
+    ).count()
+    """
+    prev_np = corona_data.query.filter(
+        corona_data.publish_d == prev
+    ).count()
+    cttpd = latest_np - prev_np
+    """
+    update_str = update.strftime(
         "%Y年%m月%d日"
     )
     place = []
@@ -59,5 +72,5 @@ def index():
     return render_template(
         "index.html", all_data=all_data, np=number_of_infeted_people,
         total=total, positivity_pepople=positivity_pepople,
-        date=update
+        date=update_str, cttpd=cttpd
     )
