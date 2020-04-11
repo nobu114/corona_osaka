@@ -12,4 +12,3 @@ corona_data Session.sql
 log/
 config/
 start_server.sh
-webserver.sh
