@@ -3,14 +3,16 @@
     <head>
         <meta charset="utf-8">
         <title>テスト</title>
+        <link href="static/css/style.css" rel="stylesheet" type="text/css">
     </head>
     <body>
-        <h1>大阪府の現在の感染者数</h1>
+        <h1>大阪府の現在の感染者</h1>
         <p>{{date}}更新</p>
-        <p>現在の陽性者数累計:{{total}}</p>
-        <p>現在の陽性者数:{{positivity_pepople}}</p>
-        <p>前日比:{{cttpd}}</p>
+        <p class="my-class">現在の陽性者数累計:<strong>{{total}}</strong></p>
+        <p class="my-class">現在の陽性者数:<strong>{{positivity_pepople}}</strong></p>
+        <p class="my-class">前日比:<strong>{{cttpd}}</strong></p>
         <h1>市町村ごとの感染者数</h1>
+        <div style="height: 200px; width: 50; overflow-y: auto;">
         <table border="1">
             <tr>
                 <th>市町村</th>
@@ -189,7 +191,9 @@
                 <td>{{np["河内長野市"]}}</td>
             </tr>
             </table>
+        </div>
             <h1>大阪府の新型コロナウイルス感染者一覧</h1>
+        <div style="height: 500px; width: 50; overflow-y: auto;">
         <table border="1">
             <tr>
                 <th>番号</th>
@@ -212,5 +216,6 @@
                 </tr>
             {% endfor %}
         </table>
+        </div>
     </body>
 </html>
