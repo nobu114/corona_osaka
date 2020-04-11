@@ -16,7 +16,8 @@ def job_manager():
         time.sleep(1)
 
 
+thread_0 = threading.Thread(target=job_manager)
+thread_0.start()
+
 if __name__ == "__main__":
-    thread_0 = threading.Thread(target=job_manager)
     app.run(debug=True)
-    thread_0.start()

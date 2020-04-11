@@ -10,12 +10,7 @@ app = Flask(__name__)
 
 
 @app.route("/")
-def hello():
-    return "Hello world"
-
-
-@app.route("/index")
-def index():
+def main():
     all_data = corona_data.query.order_by(
         corona_data.index
     ).all()
