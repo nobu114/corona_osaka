@@ -9,9 +9,14 @@
     <body>
         <h1>大阪府の現在の感染者</h1>
         <p>{{date}}更新</p>
-        <p class="my-class">現在の陽性者数累計:<strong>{{total}}</strong></p>
-        <p class="my-class">現在の陽性者数:<strong>{{positivity_pepople}}</strong></p>
-        <p class="my-class">前日比:<strong>{{cttpd}}</strong></p>
+        <p>現在の陽性者数累計:<strong>{{total}}人</strong></p>
+        <p>現在の陽性者数:<strong>{{positivity_people}}人</strong></p>
+        {% if cttpd > 0 %}
+        <p>前日比:<strong>+{{cttpd}}</strong></p>
+        {% else %}
+        <p>前日比：<strong>-{{cttpd}}</strong></p>
+        {% endif %}
+        <p>死者：<strong>{{die_people}}人</strong></p>
         <h1>市町村ごとの感染者数</h1>
         <div style="height: max-content; width: max-content; border: solid; border-color: black;">
             <table border="1">
@@ -21,7 +26,7 @@
                         <th style="width: 100px; border: 1px solid;">感染者数</th>
                     </tr>
                 </thead>
-                <tbody class="table-contents" style="display: block;"><!--overflow-y:scroll;height:200px;"-->
+                <tbody class="table-contents" style="display: block;">
                     <tr>
                         <td style="width: 100px; border: 1px solid;">大阪市</td>
                         <td style="width: 100px; border: 1px solid;">{{np["大阪市"]}}</td>
@@ -211,7 +216,7 @@
                     <th style="width: 100px; border: 1px solid;">入退院の状況</th>
                 </tr>
             </thead>
-            <tbody class="table-contents" style="display: block;"><!--overflow-y:scroll; height:200px;-->
+            <tbody class="table-contents" style="display: block;">
             {% for data in all_data %}
                 <tr>
                     <td style="width: 100px; border: 1px solid;">{{data.index}}</td>

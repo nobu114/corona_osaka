@@ -13,12 +13,16 @@ def main():
         corona_data.index
     ).all()
     total = corona_data.query.count()
-    positivity_pepople = corona_data.query.filter(
+    positivity_people = corona_data.query.filter(
         or_(
             corona_data.hospitalization == "入院中",
             corona_data.hospitalization == "入院調整中"
         )
     ).count()
+    die_people = corona_data.query.filter(
+        corona_data.symptoms == "死亡"
+    ).count()
+    print(die_people)
     update = corona_data.query.order_by(
         desc(corona_data.publish_d)
     ).limit(1).first().publish_d.date()
@@ -161,6 +165,6 @@ def main():
     }
     return render_template(
         "index.html", all_data=all_data, np=number_of_infeted_people,
-        total=total, positivity_pepople=positivity_pepople,
-        date=update_str, cttpd=cttpd
+        total=total, positivity_people=positivity_people,
+        date=update_str, cttpd=cttpd, die_people=die_people
     )
