@@ -6,3 +6,8 @@
 html {
     background-color: #f8f9fa;
   }
+.table-contents{
+    height: 200px;
+    overflow: scroll;
+    -webkit-overflow-scrolling: touch
+}

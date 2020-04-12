@@ -21,7 +21,7 @@
                         <th style="width: 100px; border: 1px solid;">感染者数</th>
                     </tr>
                 </thead>
-                <tbody style="display: block;overflow-y:scroll;height:200px;">
+                <tbody class="table-contents" style="display: block;"><!--overflow-y:scroll;height:200px;"-->
                     <tr>
                         <td style="width: 100px; border: 1px solid;">大阪市</td>
                         <td style="width: 100px; border: 1px solid;">{{np["大阪市"]}}</td>
@@ -211,7 +211,7 @@
                     <th style="width: 100px; border: 1px solid;">入退院の状況</th>
                 </tr>
             </thead>
-            <tbody style="display: block;overflow-y:scroll;height:200px;">
+            <tbody class="table-contents" style="display: block;"><!--overflow-y:scroll; height:200px;-->
             {% for data in all_data %}
                 <tr>
                     <td style="width: 100px; border: 1px solid;">{{data.index}}</td>
