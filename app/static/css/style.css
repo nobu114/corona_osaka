@@ -1,4 +1,8 @@
-.my-class{
+.my-class {
     color: black;
     width: 500px;
 }
+
+html {
+    background-color: #f8f9fa;
+  }
