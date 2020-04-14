@@ -69,7 +69,7 @@ def main():
             corona_data.place == "島本町"
         ).count(),
         "吹田市": corona_data.query.filter(
-            corona_data.place == "吹田町"
+            corona_data.place == "吹田市"
         ).count(),
         "摂津市": corona_data.query.filter(
             corona_data.place == "摂津市"
