@@ -1,5 +1,5 @@
 from flask import Flask, render_template
-from sqlalchemy import desc, or_
+from sqlalchemy import desc
 
 from models.models import corona_data
 
