@@ -5,12 +5,8 @@ import threading
 from models.update import update_database
 
 
-def job():
-    update_database()
-
-
 def job_manager():
-    schedule.every().day.at("01:00").do(job)
+    schedule.every().day.at("01:00").do(update_database())
     while True:
         schedule.run_pending()
         time.sleep(1)
