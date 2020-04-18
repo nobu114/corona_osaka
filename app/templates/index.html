@@ -2,232 +2,260 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>テスト</title>
+        <title>大阪府の新型コロナウイルス情報</title>
         <link href="static/css/style.css" rel="stylesheet" type="text/css">
         <meta name="viewport" content="width=device-width,initial-scale=1.0">
     </head>
     <body>
-        <h1>大阪府の現在の感染者</h1>
+        <h1>大阪府の新型コロナウイルス情報</h1>
         <p>{{date}}更新</p>
-        <p>現在の陽性者数累計:<strong>{{total}}人</strong></p>
-        <p>現在の陽性者数:<strong>{{positivity_people}}人</strong></p>
-        {% if cttpd > 0 %}
-        <p>前日比:<strong>+{{cttpd}}</strong></p>
-        {% else %}
-        <p>前日比：<strong>-{{cttpd}}</strong></p>
-        {% endif %}
-        <p>死者：<strong>{{die_people}}人</strong></p>
-        <h1>市町村ごとの感染者数</h1>
-        <div style="height: max-content; width: max-content; border: solid; border-color: black;">
-            <table border="1">
-                <thead style="display: block;">
-                    <tr>
-                        <th style="width: 100px; border: 1px solid;">市町村</th>
-                        <th style="width: 100px; border: 1px solid;">感染者数</th>
-                    </tr>
-                </thead>
-                <tbody class="table-contents" style="display: block;">
-                    <tr>
-                        <td style="width: 100px; border: 1px solid;">大阪市</td>
-                        <td style="width: 100px; border: 1px solid;">{{np["大阪市"]}}</td>
-                    </tr>
-                    <tr>
-                        <td>堺市</td>
-                        <td>{{np["堺市"]}}</td>
-                    </tr>
-                    <tr>
-                        <td>能勢町</td>
-                        <td>{{np["能勢町"]}}</td>
-                    </tr>
-                    <tr>
-                        <td>豊能町</td>
-                        <td>{{np["豊能町"]}}</td>
-                    </tr>
-                    <tr>
-                        <td>池田市</td>
-                        <td>{{np["池田市"]}}</td>
-                    </tr>
-                    <tr>
-                        <td>箕面市</td>
-                        <td>{{np["箕面市"]}}</td>
-                    </tr>
-                    <tr>
-                        <td>豊中市</td>
-                        <td>{{np["豊中市"]}}</td>
-                    </tr>
-                    <tr>
-                        <td>茨木市</td>
-                        <td>{{np["茨木市"]}}</td>
-                    </tr>
-                    <tr>
-                        <td>高槻市</td>
-                        <td>{{np["高槻市"]}}</td>
-                    </tr>
-                    <tr>
-                        <td>島本町</td>
-                        <td>{{np["島本町"]}}</td>
-                    </tr>
-                    <tr>
-                        <td>吹田市</td>
-                        <td>{{np["吹田市"]}}</td>
-                    </tr>
-                    <tr>
-                        <td>摂津市</td>
-                        <td>{{np["摂津市"]}}</td>
-                    </tr>
-                    <tr>
-                        <td>枚方市</td>
-                        <td>{{np["枚方市"]}}</td>
-                    </tr>
-                    <tr>
-                        <td>交野市</td>
-                        <td>{{np["交野市"]}}</td>
-                    </tr>
-                    <tr>
-                        <td>寝屋川市</td>
-                        <td>{{np["寝屋川市"]}}</td>
-                    </tr>
-                    <tr>
-                        <td>守口市</td>
-                        <td>{{np["守口市"]}}</td>
-                    </tr>
-                    <tr>
-                        <td>門真市</td>
-                        <td>{{np["門真市"]}}</td>
-                    </tr>
-                    <tr>
-                        <td>四條畷市</td>
-                        <td>{{np["四條畷市"]}}</td>
-                    </tr>
-                    <tr>
-                        <td>大東市</td>
-                        <td>{{np["大東市"]}}</td>
-                    </tr>
-                    <tr>
-                        <td>東大阪市</td>
-                        <td>{{np["東大阪市"]}}</td>
-                    </tr>
-                    <tr>
-                        <td>八尾市</td>
-                        <td>{{np["八尾市"]}}</td>
-                    </tr>
-                    <tr>
-                        <td>柏原市</td>
-                        <td>{{np["柏原市"]}}</td>
-                    </tr>
-                    <tr>
-                        <td>和泉市</td>
-                        <td>{{np["和泉市"]}}</td>
-                    </tr>
-                    <tr>
-                        <td>高石市</td>
-                        <td>{{np["高石市"]}}</td>
-                    </tr>
-                    <tr>
-                        <td>泉大津市</td>
-                        <td>{{np["泉大津市"]}}</td>
-                    </tr>
-                    <tr>
-                        <td>忠岡町</td>
-                        <td>{{np["忠岡町"]}}</td>
-                    </tr>
-                    <tr>
-                        <td>岸和田市</td>
-                        <td>{{np["岸和田市"]}}</td>
-                    </tr>
-                    <tr>
-                        <td>貝塚市</td>
-                        <td>{{np["貝塚市"]}}</td>
-                    </tr>
-                    <tr>
-                        <td>熊取町</td>
-                        <td>{{np["熊取町"]}}</td>
-                    </tr>
-                    <tr>
-                        <td>泉佐野市</td>
-                        <td>{{np["泉佐野市"]}}</td>
-                    </tr>
-                    <tr>
-                        <td>田尻町</td>
-                        <td>{{np["田尻町"]}}</td>
-                    </tr>
-                    <tr>
-                        <td>泉南市</td>
-                        <td>{{np["泉南市"]}}</td>
-                    </tr>
-                    <tr>
-                        <td>阪南市</td>
-                        <td>{{np["阪南市"]}}</td>
-                    </tr>
-                    <tr>
-                        <td>岬町</td>
-                        <td>{{np["岬町"]}}</td>
-                    </tr>
-                    <tr>
-                        <td>松原市</td>
-                        <td>{{np["松原市"]}}</td>
-                    </tr>
-                    <tr>
-                        <td>羽曳野市</td>
-                        <td>{{np["羽曳野市"]}}</td>
-                    </tr>
-                    <tr>
-                        <td>藤井寺市</td>
-                        <td>{{np["藤井寺市"]}}</td>
-                    </tr>
-                    <tr>
-                        <td>太子町</td>
-                        <td>{{np["太子町"]}}</td>
-                    </tr>
-                    <tr>
-                        <td>河南町</td>
-                        <td>{{np["河南町"]}}</td>
-                    </tr>
-                    <tr>
-                        <td>千早赤阪村</td>
-                        <td>{{np["千早赤阪村"]}}</td>
-                    </tr>
-                    <tr>
-                        <td>富田林市</td>
-                        <td>{{np["富田林市"]}}</td>
-                    </tr>
-                    <tr>
-                        <td>大阪狭山市</td>
-                        <td>{{np["大阪狭山市"]}}</td>
-                    </tr>
-                    <tr>
-                        <td>河内長野市</td>
-                        <td>{{np["河内長野市"]}}</td>
-                    </tr>
-                </tbody>
-            </table>
+        <div class="container1">
+            <div class="item">
+                <p class="title">感染者数累計</p>
+                <p class="value"><strong>{{total}}人</strong></p>
+            </div>
+
+            <div class="item">
+                <p class="title">前日比</p>
+                {% if cttpd > 0 %}
+                <p class="value"><strong>+{{cttpd}}</strong></p>
+                {% else %}
+                <p class="value"><strong>-{{cttpd}}</strong></p>
+                {% endif %}
+            </div>
+            
+            <dive class="item">
+                <p class="title">現在の陽性者数</p>
+                <p class="value"><strong>{{positivity_people}}人</strong></p>
+            </dive>
+            
+            <div class="item">
+                <p class="title">死者</p>
+                <p class="value"><strong>{{die_people}}人</strong></p>
+            </div>
         </div>
-        <h1>大阪府の新型コロナウイルス感染者一覧</h1>
-        <div style="height: max-content; width: max-content; border: 2px solid; border-color: black;">
-        <table border="1">
-            <thead style="display: block;">
-                <tr>
-                    <th style="width: 100px; border: 1px solid;">番号</th>
-                    <th style="width: 100px; border: 1px solid;">年代</th>
-                    <th style="width: 100px; border: 1px solid;">性別</th>
-                    <th style="width: 100px; border: 1px solid;">居住地</th>
-                    <th style="width: 100px; border: 1px solid;">発症日</th>
-                    <th style="width: 100px; border: 1px solid;">症状</th>
-                </tr>
-            </thead>
-            <tbody class="table-contents" style="display: block;">
-            {% for data in all_data %}
-                <tr>
-                    <td style="width: 100px; border: 1px solid;">{{data.index}}</td>
-                    <td style="width: 100px; border: 1px solid;">{{data.age}}</td>
-                    <td style="width: 100px; border: 1px solid;">{{data.gender}}</td>
-                    <td style="width: 100px; border: 1px solid;">{{data.place}}</td>
-                    <td style="width: 100px; border: 1px solid;">{{data.date_of_onset}}</td>
-                    <td style="width: 100px; border: 1px solid;">{{data.symptoms}}</td>
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
+
+        <div class="container2">
+            <div class="item">
+                <p class="title">市町村ごとの感染者数</p>
+                <p class="value">
+                    <div style="height: max-content; width: max-content;">
+                        <table border="1">
+                            <thead style="display: block;">
+                                <tr>
+                                    <th style="width: 100px; border: 1px solid;">市町村</th>
+                                    <th style="width: 100px; border: 1px solid;">感染者数</th>
+                                </tr>
+                            </thead>
+                            <tbody class="table-contents" style="display: block;">
+                                <tr>
+                                    <td style="width: 100px; border: 1px solid;">大阪市</td>
+                                    <td style="width: 100px; border: 1px solid;">{{np["大阪市"]}}</td>
+                                </tr>
+                                <tr>
+                                    <td>堺市</td>
+                                    <td>{{np["堺市"]}}</td>
+                                </tr>
+                                <tr>
+                                    <td>能勢町</td>
+                                    <td>{{np["能勢町"]}}</td>
+                                </tr>
+                                <tr>
+                                    <td>豊能町</td>
+                                    <td>{{np["豊能町"]}}</td>
+                                </tr>
+                                <tr>
+                                    <td>池田市</td>
+                                    <td>{{np["池田市"]}}</td>
+                                </tr>
+                                <tr>
+                                    <td>箕面市</td>
+                                    <td>{{np["箕面市"]}}</td>
+                                </tr>
+                                <tr>
+                                    <td>豊中市</td>
+                                    <td>{{np["豊中市"]}}</td>
+                                </tr>
+                                <tr>
+                                    <td>茨木市</td>
+                                    <td>{{np["茨木市"]}}</td>
+                                </tr>
+                                <tr>
+                                    <td>高槻市</td>
+                                    <td>{{np["高槻市"]}}</td>
+                                </tr>
+                                <tr>
+                                    <td>島本町</td>
+                                    <td>{{np["島本町"]}}</td>
+                                </tr>
+                                <tr>
+                                    <td>吹田市</td>
+                                    <td>{{np["吹田市"]}}</td>
+                                </tr>
+                                <tr>
+                                    <td>摂津市</td>
+                                    <td>{{np["摂津市"]}}</td>
+                                </tr>
+                                <tr>
+                                    <td>枚方市</td>
+                                    <td>{{np["枚方市"]}}</td>
+                                </tr>
+                                <tr>
+                                    <td>交野市</td>
+                                    <td>{{np["交野市"]}}</td>
+                                </tr>
+                                <tr>
+                                    <td>寝屋川市</td>
+                                    <td>{{np["寝屋川市"]}}</td>
+                                </tr>
+                                <tr>
+                                    <td>守口市</td>
+                                    <td>{{np["守口市"]}}</td>
+                                </tr>
+                                <tr>
+                                    <td>門真市</td>
+                                    <td>{{np["門真市"]}}</td>
+                                </tr>
+                                <tr>
+                                    <td>四條畷市</td>
+                                    <td>{{np["四條畷市"]}}</td>
+                                </tr>
+                                <tr>
+                                    <td>大東市</td>
+                                    <td>{{np["大東市"]}}</td>
+                                </tr>
+                                <tr>
+                                    <td>東大阪市</td>
+                                    <td>{{np["東大阪市"]}}</td>
+                                </tr>
+                                <tr>
+                                    <td>八尾市</td>
+                                    <td>{{np["八尾市"]}}</td>
+                                </tr>
+                                <tr>
+                                    <td>柏原市</td>
+                                    <td>{{np["柏原市"]}}</td>
+                                </tr>
+                                <tr>
+                                    <td>和泉市</td>
+                                    <td>{{np["和泉市"]}}</td>
+                                </tr>
+                                <tr>
+                                    <td>高石市</td>
+                                    <td>{{np["高石市"]}}</td>
+                                </tr>
+                                <tr>
+                                    <td>泉大津市</td>
+                                    <td>{{np["泉大津市"]}}</td>
+                                </tr>
+                                <tr>
+                                    <td>忠岡町</td>
+                                    <td>{{np["忠岡町"]}}</td>
+                                </tr>
+                                <tr>
+                                    <td>岸和田市</td>
+                                    <td>{{np["岸和田市"]}}</td>
+                                </tr>
+                                <tr>
+                                    <td>貝塚市</td>
+                                    <td>{{np["貝塚市"]}}</td>
+                                </tr>
+                                <tr>
+                                    <td>熊取町</td>
+                                    <td>{{np["熊取町"]}}</td>
+                                </tr>
+                                <tr>
+                                    <td>泉佐野市</td>
+                                    <td>{{np["泉佐野市"]}}</td>
+                                </tr>
+                                <tr>
+                                    <td>田尻町</td>
+                                    <td>{{np["田尻町"]}}</td>
+                                </tr>
+                                <tr>
+                                    <td>泉南市</td>
+                                    <td>{{np["泉南市"]}}</td>
+                                </tr>
+                                <tr>
+                                    <td>阪南市</td>
+                                    <td>{{np["阪南市"]}}</td>
+                                </tr>
+                                <tr>
+                                    <td>岬町</td>
+                                    <td>{{np["岬町"]}}</td>
+                                </tr>
+                                <tr>
+                                    <td>松原市</td>
+                                    <td>{{np["松原市"]}}</td>
+                                </tr>
+                                <tr>
+                                    <td>羽曳野市</td>
+                                    <td>{{np["羽曳野市"]}}</td>
+                                </tr>
+                                <tr>
+                                    <td>藤井寺市</td>
+                                    <td>{{np["藤井寺市"]}}</td>
+                                </tr>
+                                <tr>
+                                    <td>太子町</td>
+                                    <td>{{np["太子町"]}}</td>
+                                </tr>
+                                <tr>
+                                    <td>河南町</td>
+                                    <td>{{np["河南町"]}}</td>
+                                </tr>
+                                <tr>
+                                    <td>千早赤阪村</td>
+                                    <td>{{np["千早赤阪村"]}}</td>
+                                </tr>
+                                <tr>
+                                    <td>富田林市</td>
+                                    <td>{{np["富田林市"]}}</td>
+                                </tr>
+                                <tr>
+                                    <td>大阪狭山市</td>
+                                    <td>{{np["大阪狭山市"]}}</td>
+                                </tr>
+                                <tr>
+                                    <td>河内長野市</td>
+                                    <td>{{np["河内長野市"]}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </p>
+            </div>
+            <div class="item">
+                <p class="title">大阪府の新型コロナウイルス感染者一覧</p>
+                <p class="value">
+                    <div style="height: max-content; width: max-content;">
+                    <table border="1">
+                        <thead style="display: block;">
+                            <tr>
+                                <th style="width: 100px; border: 1px solid;">番号</th>
+                                <th style="width: 100px; border: 1px solid;">年代</th>
+                                <th style="width: 100px; border: 1px solid;">性別</th>
+                                <th style="width: 100px; border: 1px solid;">居住地</th>
+                                <th style="width: 100px; border: 1px solid;">発症日</th>
+                                <th style="width: 100px; border: 1px solid;">症状</th>
+                            </tr>
+                        </thead>
+                        <tbody class="table-contents" style="display: block;">
+                        {% for data in all_data %}
+                            <tr>
+                                <td style="width: 100px; border: 1px solid;">{{data.index}}</td>
+                                <td style="width: 100px; border: 1px solid;">{{data.age}}</td>
+                                <td style="width: 100px; border: 1px solid;">{{data.gender}}</td>
+                                <td style="width: 100px; border: 1px solid;">{{data.place}}</td>
+                                <td style="width: 100px; border: 1px solid;">{{data.date_of_onset}}</td>
+                                <td style="width: 100px; border: 1px solid;">{{data.symptoms}}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                    </div>
+                </p>
+            </div>
         </div>
     </body>
 </html>
