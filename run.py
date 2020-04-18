@@ -6,7 +6,7 @@ from models.update import update_database
 
 
 def job_manager():
-    schedule.every().day.at("11:00").do(update_database())
+    schedule.every().day.at("23:00").do(update_database())
     while True:
         schedule.run_pending()
         time.sleep(1)
