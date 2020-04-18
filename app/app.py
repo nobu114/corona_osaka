@@ -13,14 +13,6 @@ def main():
         corona_data.index
     ).all()
     total = corona_data.query.count()
-    """
-    positivity_people = corona_data.query.filter(
-        or_(
-            corona_data.hospitalization == "入院中",
-            corona_data.hospitalization == "入院調整中"
-        )
-    ).count()
-    """
     negative_people = corona_data.query.filter(
         corona_data.symptoms == "―"
     ).count()
