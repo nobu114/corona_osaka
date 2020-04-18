@@ -49,8 +49,8 @@ def update_database():
         gender=insert_stmt.excluded.gender,
         place=insert_stmt.excluded.place,
         date_of_onset=insert_stmt.excluded.date_of_onset,
-        symptoms=insert_stmt.excluded.symptoms,
-        hospitalization=insert_stmt.excluded.hospitalization
+        symptoms=insert_stmt.excluded.symptoms
+        # hospitalization=insert_stmt.excluded.hospitalization
     )
     insert_stmt = insert_stmt.on_conflict_do_update(
         index_elements=["index"], set_=set_
@@ -66,6 +66,6 @@ def update_database():
             data["place"] = r_list[i][4]
             data["date_of_onset"] = r_list[i][5]
             data["symptoms"] = r_list[i][6]
-            data["hospitalization"] = r_list[i][7]
+            # data["hospitalization"] = r_list[i][7]
             values.append(data)
         conn.execute(insert_stmt, values)

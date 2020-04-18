@@ -12,3 +12,4 @@ corona_data Session.sql
 log/
 config/
 start_server.sh
+piyo.py

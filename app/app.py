@@ -1,5 +1,5 @@
 from flask import Flask, render_template
-from sqlalchemy import desc, or_
+from sqlalchemy import desc
 
 from models.models import corona_data
 
@@ -13,16 +13,13 @@ def main():
         corona_data.index
     ).all()
     total = corona_data.query.count()
-    positivity_people = corona_data.query.filter(
-        or_(
-            corona_data.hospitalization == "入院中",
-            corona_data.hospitalization == "入院調整中"
-        )
+    negative_people = corona_data.query.filter(
+        corona_data.symptoms == "―"
     ).count()
     die_people = corona_data.query.filter(
         corona_data.symptoms == "死亡"
     ).count()
-    print(die_people)
+    positivity_people = total - (die_people + negative_people)
     update = corona_data.query.order_by(
         desc(corona_data.publish_d)
     ).limit(1).first().publish_d.date()
@@ -64,7 +61,7 @@ def main():
             corona_data.place == "島本町"
         ).count(),
         "吹田市": corona_data.query.filter(
-            corona_data.place == "吹田町"
+            corona_data.place == "吹田市"
         ).count(),
         "摂津市": corona_data.query.filter(
             corona_data.place == "摂津市"
