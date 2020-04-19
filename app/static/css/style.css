@@ -39,11 +39,14 @@ td {
     border-radius: 10px;
     border-color: dimgrey;
     background-color: white;
-    flex-basis: 150px ;
+    flex-grow: 2;
+    flex-shrink: 2;
+    flex-basis: 0% ;
 }
 .title {
     text-align: center;
 }
 .value {
     text-align: center;
+    margin: auto;
 }
