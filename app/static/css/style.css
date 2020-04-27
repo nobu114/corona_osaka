@@ -20,7 +20,7 @@ td {
 }
 .container1 {
     width: 100%;
-    max-width: 960;
+    max-width: 100%;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
@@ -41,9 +41,9 @@ td {
     border-radius: 10px;
     border-color: dimgrey;
     background-color: white;
-    flex-grow: 2;
-    flex-shrink: 2;
-    flex-basis: 0% ;
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: auto;
 }
 .title {
     text-align: center;
