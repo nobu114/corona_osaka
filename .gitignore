@@ -3,7 +3,6 @@ env/
 models/__pycache__/
 app/__pycache__
 __pycache__
-hoge.py
 app/hogepath.py
 driver/
 models/corona.xlsx
@@ -12,4 +11,3 @@ corona_data Session.sql
 log/
 config/
 start_server.sh
-piyo.py
