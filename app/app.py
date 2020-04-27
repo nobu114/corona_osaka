@@ -13,6 +13,7 @@ def main():
         corona_data.index
     ).all()
     total = corona_data.query.count()
+    # 治った人
     negative_people = corona_data.query.filter(
         corona_data.symptoms == "―"
     ).count()
@@ -23,6 +24,7 @@ def main():
     update = corona_data.query.order_by(
         desc(corona_data.publish_d)
     ).limit(1).first().publish_d.date()
+    # 前日比
     cttpd = corona_data.query.filter(
         corona_data.publish_d == update
     ).count()
@@ -160,8 +162,47 @@ def main():
             corona_data.place == "河内長野市"
         ).count()
     }
+    people_dict = {
+        "未就学児": corona_data.query.filter(
+            corona_data.age == "未就学児"
+        ).count(),
+        "就学児": corona_data.query.filter(
+            corona_data.age == "就学児"
+        ).count(),
+        "10": corona_data.query.filter(
+            corona_data.age == "10"
+        ).count(),
+        "20": corona_data.query.filter(
+            corona_data.age == "20"
+        ).count(),
+        "30": corona_data.query.filter(
+            corona_data.age == "30"
+        ).count(),
+        "40": corona_data.query.filter(
+            corona_data.age == "40"
+        ).count(),
+        "50": corona_data.query.filter(
+            corona_data.age == "50"
+        ).count(),
+        "60": corona_data.query.filter(
+            corona_data.age == "60"
+        ).count(),
+        "70": corona_data.query.filter(
+            corona_data.age == "70"
+        ).count(),
+        "80": corona_data.query.filter(
+            corona_data.age == "80"
+        ).count(),
+        "90": corona_data.query.filter(
+            corona_data.age == "90"
+        ).count(),
+        "100": corona_data.query.filter(
+            corona_data.age == "100"
+        ).count()
+    }
     return render_template(
         "index.html", all_data=all_data, np=number_of_infeted_people,
         total=total, positivity_people=positivity_people,
-        date=update_str, cttpd=cttpd, die_people=die_people
+        date=update_str, cttpd=cttpd, die_people=die_people,
+        people_dict=people_dict
     )

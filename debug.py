@@ -1,10 +1,10 @@
 from app.app import app
-import schedule
-import time
-import threading
-from models.update import update_database
+# import schedule
+# import time
+# import threading
+# from models.update import update_database
 
-
+"""
 def job():
     update_database()
 
@@ -18,6 +18,6 @@ def job_manager():
 
 thread_0 = threading.Thread(target=job_manager)
 thread_0.start()
-
+"""
 if __name__ == "__main__":
     app.run(debug=True, port=5000)
