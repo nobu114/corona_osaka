@@ -5,6 +5,11 @@
         <title>大阪府の新型コロナウイルス情報</title>
         <link href="static/css/style.css" rel="stylesheet" type="text/css">
         <meta name="viewport" content="width=device-width,initial-scale=1.0">
+        <!--jsにわたすための変数を定義-->
+        <script>
+            let total = {{total|tojson}};
+            let people_dict = {{people_dict|tojson}};
+        </script>
     </head>
     <body>
         <h1>大阪府の新型コロナウイルス情報</h1>
@@ -36,6 +41,11 @@
         </div>
 
         <div class="container2">
+            <div class="item">
+                <canvas id="myChart" width="400" height="400"></canvas>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js"></script>
+                <script type="text/javascript" src="static/javascript/age_graph.js"></script>
+            </div>
             <div class="item">
                 <p class="title">市町村ごとの感染者数</p>
                 <div style="height: max-content; width: max-content; margin: auto;">
