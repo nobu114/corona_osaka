@@ -8,9 +8,11 @@ h1 {
     color: #00539f;
 }
 .table-contents{
-    height: 500px;
+    height: max-content
+    /*
     overflow: scroll;
     -webkit-overflow-scrolling: touch
+    */
 }
 td {
     text-align: center;
@@ -27,7 +29,7 @@ td {
 }
 .container2 {
     width: 100%;
-    max-width: 960;
+    max-width: max-content;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
