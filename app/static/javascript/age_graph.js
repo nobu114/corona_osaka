@@ -1,4 +1,4 @@
-var ctx = document.getElementById("myChart").getContext('2d');
+var ctx = document.getElementById("myChart");
 var myChart = new Chart(ctx, {
     type: 'horizontalBar',
     data: {
@@ -34,6 +34,7 @@ var myChart = new Chart(ctx, {
         }]
     },
     options: {
+        responsive: true,
         scales: {
             yAxes: [{
                 ticks: {
