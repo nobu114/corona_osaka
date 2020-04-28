@@ -8,11 +8,9 @@ h1 {
     color: #00539f;
 }
 .table-contents{
-    height: max-content
-    /*
-    overflow: scroll;
+    height: max-content;
+    overflow-x: scroll;
     -webkit-overflow-scrolling: touch
-    */
 }
 td {
     text-align: center;
@@ -29,21 +27,29 @@ td {
 }
 .container2 {
     width: 100%;
-    max-width: max-content;
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: space-around;
     align-items: flex-start;
     align-content: flex-start;
+    align-self: flex-start;
+    padding: 10px;
 }
 .item {
     border: 2px solid;
     border-radius: 10px;
     border-color: dimgrey;
     background-color: white;
-    flex-grow: 1;
-    flex-shrink: 1;
-    flex-basis: auto;
+    flex-grow: 4;
+    flex-shrink: 4;
+    flex-basis: max-content;
+    min-width: 0;
+    /*
+    margin: 20px;
+    padding: 10px;
+    */
+    overflow-x: scroll;
+    -webkit-overflow-scrolling: touch
 }
 .title {
     text-align: center;

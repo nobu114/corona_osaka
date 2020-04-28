@@ -39,10 +39,9 @@
                 <p class="value"><strong>{{die_people}}人</strong></p>
             </div>
         </div>
-
         <div class="container2">
             <div class="item">
-                <canvas id="myChart" width="600" height="600"></canvas>
+                <canvas id="myChart" width= "100%" height="200%" style="margin: 20px; padding: 20px;"></canvas>
                 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js"></script>
                 <script type="text/javascript" src="static/javascript/age_graph.js"></script>
             </div>
@@ -235,16 +234,16 @@
             </div>
             <div class="item">
                 <p class="title">大阪府の新型コロナウイルス感染者一覧</p>
-                <div style="height: max-content; width: max-content; margin: auto;">
+                <div style="height: max-content; width: max-content; margin: auto; padding: 10px;">
                 <table border="1">
                         <thead style="display: block;">
                             <tr>
                                 <th style="width: 100px; border: 1px solid;">番号</th>
                                 <th style="width: 100px; border: 1px solid;">年代</th>
-                                <th style="width: 100px; border: 1px solid;">性別</th>
-                                <th style="width: 100px; border: 1px solid;">居住地</th>
+                                <th style="width: 80px; border: 1px solid;">性別</th>
+                                <th style="width: 90px; border: 1px solid;">居住地</th>
                                 <th style="width: 100px; border: 1px solid;">発症日</th>
-                                <th style="width: 100px; border: 1px solid;">症状</th>
+                                <th style="width: 90px; border: 1px solid;">症状</th>
                             </tr>
                         </thead>
                         <tbody class="table-contents" style="display: block;">
@@ -252,10 +251,10 @@
                             <tr>
                                 <td style="width: 100px; border: 1px solid;">{{data.index}}</td>
                                 <td style="width: 100px; border: 1px solid;">{{data.age}}</td>
-                                <td style="width: 100px; border: 1px solid;">{{data.gender}}</td>
-                                <td style="width: 100px; border: 1px solid;">{{data.place}}</td>
+                                <td style="width: 80px; border: 1px solid;">{{data.gender}}</td>
+                                <td style="width: 90px; border: 1px solid;">{{data.place}}</td>
                                 <td style="width: 100px; border: 1px solid;">{{data.date_of_onset}}</td>
-                                <td style="width: 100px; border: 1px solid;">{{data.symptoms}}</td>
+                                <td style="width: 90px; border: 1px solid;">{{data.symptoms}}</td>
                             </tr>
                         {% endfor %}
                         </tbody>
