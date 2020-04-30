@@ -7,8 +7,8 @@
         <meta name="viewport" content="width=device-width,initial-scale=1.0">
         <!--jsにわたすための変数を定義-->
         <script>
-            let total = {{total|tojson}};
             let people_dict = {{people_dict|tojson}};
+            let symptoms_dict = {{symptoms_dict|tojson}};
         </script>
     </head>
     <body>
@@ -31,19 +31,22 @@
             
             <dive class="item">
                 <p class="title">現在の陽性者数</p>
-                <p class="value"><strong>{{positivity_people}}人</strong></p>
+                <p class="value"><strong>{{(total - (symptoms_dict["die"] + symptoms_dict["asymptomatic"]))}}人</strong></p>
             </dive>
             
             <div class="item">
                 <p class="title">死者</p>
-                <p class="value"><strong>{{die_people}}人</strong></p>
+                <p class="value"><strong>{{symptoms_dict["die"]}}人</strong></p>
             </div>
         </div>
         <div class="container2">
             <div class="item2">
-                <canvas id="myChart" width= "100%" height="200%" style="margin: 20px; padding: 20px;"></canvas>
+                <canvas id="age_graph" width= "80%" height="80%" style="margin: 20px; padding: 20px;"></canvas>
                 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js"></script>
-                <script type="text/javascript" src="static/javascript/age_graph.js"></script>
+            </div>
+            <div class="item2">
+                <canvas id="symptoms_graph" width="80%" height="80%" style="margin: 20px; padding: 20px;"></canvas>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js"></script>
             </div>
             <div class="item">
                 <p class="title">市町村ごとの感染者数</p>
@@ -262,5 +265,6 @@
                 </div>
             </div>
         </div>
+        <script type="text/javascript" src="static/javascript/age_graph.js"></script>
     </body>
 </html>
