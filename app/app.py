@@ -12,15 +12,36 @@ def main():
     all_data = corona_data.query.order_by(
         corona_data.index
     ).all()
+    symptoms_dict = {
+        "mild_illness": corona_data.query.filter(
+            corona_data.symptoms == "軽症"
+        ).count(),
+        "serious_illness": corona_data.query.filter(
+            corona_data.symptoms == "重症"
+        ).count(),
+        "die": corona_data.query.filter(
+            corona_data.symptoms == "死亡"
+        ).count(),
+        "asymptomatic": corona_data.query.filter(
+            corona_data.symptoms == "無症状"
+        ).count(),
+        "end": corona_data.query.filter(
+            corona_data.symptoms == "―"
+        ).count(),
+        "examine": corona_data.query.filter(
+            corona_data.symptoms == "調査中"
+        ).count()
+    }
     total = corona_data.query.count()
     # 治った人
+    """
     negative_people = corona_data.query.filter(
         corona_data.symptoms == "―"
     ).count()
     die_people = corona_data.query.filter(
         corona_data.symptoms == "死亡"
     ).count()
-    positivity_people = total - (die_people + negative_people)
+    """
     update = corona_data.query.order_by(
         desc(corona_data.publish_d)
     ).limit(1).first().publish_d.date()
@@ -200,9 +221,9 @@ def main():
             corona_data.age == "100"
         ).count()
     }
+
     return render_template(
         "index.html", all_data=all_data, np=number_of_infeted_people,
-        total=total, positivity_people=positivity_people,
-        date=update_str, cttpd=cttpd, die_people=die_people,
-        people_dict=people_dict
+        total=total, date=update_str, cttpd=cttpd, people_dict=people_dict,
+        symptoms_dict=symptoms_dict
     )
