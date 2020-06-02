@@ -9,5 +9,6 @@ models/corona.xlsx
 tmp/
 corona_data Session.sql
 log/
-config/
+decode.py
 start_server.sh
+config/
