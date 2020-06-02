@@ -65,7 +65,7 @@ var symptoms_graph = new Chart(ctx_symptoms, {
             "軽症", "重症", "死亡", "無症状", "退院・解除済み", "調査中"
         ],
         datasets: [{
-            label: '感染者の症状別グラフ',
+            label: '現在の陽性患者の症状別グラフ',
             data: [
                 symptoms_dict["mild_illness"], symptoms_dict["serious_illness"],
                 symptoms_dict["die"], symptoms_dict["asymptomatic"], symptoms_dict["end"],
