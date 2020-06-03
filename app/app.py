@@ -1,5 +1,5 @@
 from flask import Flask, render_template
-from sqlalchemy import desc
+from sqlalchemy import desc, and_
 
 from models.models import corona_data
 
@@ -53,9 +53,16 @@ def main():
         "%Y年%m月%d日"
     )
     number_of_infeted_people = {
-        "大阪市": corona_data.query.filter(
-            corona_data.place == "大阪市"
-        ).count(),
+        "大阪市": (
+            corona_data.query.filter(
+                corona_data.place == "大阪市"
+            ).count(),
+            corona_data.query.filter(
+                and_(
+                    corona_data.place == "大阪市",
+                    corona_data.symptoms != "―")
+            ).count()
+        ),
         "堺市": corona_data.query.filter(
             corona_data.place == "堺市"
         ).count(),

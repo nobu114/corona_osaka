@@ -12,3 +12,4 @@ log/
 decode.py
 start_server.sh
 config/
+start_test.sh
