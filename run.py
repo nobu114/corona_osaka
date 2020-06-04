@@ -1,4 +1,5 @@
 from app.app import app
+"""
 import schedule
 import time
 import threading
@@ -14,6 +15,7 @@ def job_manager():
 
 thread_0 = threading.Thread(target=job_manager)
 thread_0.start()
+"""
 
 if __name__ == "__main__":
     app.run()
