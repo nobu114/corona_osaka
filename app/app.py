@@ -1,10 +1,27 @@
 from flask import Flask, render_template
-from sqlalchemy import desc, and_
+from sqlalchemy import desc, and_, or_
 
 from models.models import corona_data
 
 
 app = Flask(__name__)
+
+
+def get_data(area):
+    all_number = corona_data.query.filter(
+        corona_data.place == area
+    ).count()
+    negative = corona_data.query.filter(
+        and_(
+            corona_data.place == area,
+            or_(
+                corona_data.symptoms == "―",
+                corona_data.symptoms == "死亡"
+            )
+        )
+    ).count()
+    active = all_number - negative
+    return (all_number, active)
 
 
 @app.route("/")
@@ -53,436 +70,49 @@ def main():
         "%Y年%m月%d日"
     )
     number_of_infeted_people = {
-        "大阪市": (
-            corona_data.query.filter(
-                corona_data.place == "大阪市"
-            ).count(),
-            corona_data.query.filter(
-                and_(
-                    corona_data.place == "大阪市",
-                    corona_data.symptoms != "―")
-            ).count()
-        ),
-        "堺市": (
-            corona_data.query.filter(
-                corona_data.place == "堺市"
-            ).count(),
-            corona_data.query.filter(
-                and_(
-                    corona_data.place == "堺市",
-                    corona_data.symptoms != "―")
-            ).count()
-        ),    
-        "能勢町": (
-            corona_data.query.filter(
-                corona_data.place == "能勢町"
-            ).count(),
-            corona_data.query.filter(
-                and_(
-                    corona_data.place == "能勢町",
-                    corona_data.symptoms != "―")
-            ).count()
-        ),
-        "豊能町": (
-            corona_data.query.filter(
-                corona_data.place == "豊能町"
-            ).count(),
-            corona_data.query.filter(
-                and_(
-                    corona_data.place == "豊能町",
-                    corona_data.symptoms != "―")
-            ).count()
-        ),
-        "池田市": (
-            corona_data.query.filter(
-                corona_data.place == "池田市"
-            ).count(),
-            corona_data.query.filter(
-                and_(
-                    corona_data.place == "池田市",
-                    corona_data.symptoms != "―")
-            ).count()
-        ),
-        "箕面市": (
-            corona_data.query.filter(
-                corona_data.place == "箕面市"
-            ).count(),
-            corona_data.query.filter(
-                and_(
-                    corona_data.place == "箕面市",
-                    corona_data.symptoms != "―")
-            ).count()
-        ),
-        "豊中市": (
-            corona_data.query.filter(
-                corona_data.place == "豊中市"
-            ).count(),
-            corona_data.query.filter(
-                and_(
-                    corona_data.place == "豊中市",
-                    corona_data.symptoms != "―")
-            ).count()
-        ),
-        "茨木市": (
-            corona_data.query.filter(
-                corona_data.place == "茨木市"
-            ).count(),
-            corona_data.query.filter(
-                and_(
-                    corona_data.place == "茨木市",
-                    corona_data.symptoms != "―")
-            ).count()
-        ),
-        "高槻市": (
-            corona_data.query.filter(
-                corona_data.place == "高槻市"
-            ).count(),
-            corona_data.query.filter(
-                and_(
-                    corona_data.place == "高槻市",
-                    corona_data.symptoms != "―")
-            ).count()
-        ),
-        "島本町": (
-            corona_data.query.filter(
-                corona_data.place == "島本町"
-            ).count(),
-            corona_data.query.filter(
-                and_(
-                    corona_data.place == "島本町",
-                    corona_data.symptoms != "―")
-            ).count()
-        ),
-        "吹田市": (
-            corona_data.query.filter(
-                corona_data.place == "吹田市"
-            ).count(),
-            corona_data.query.filter(
-                and_(
-                    corona_data.place == "吹田市",
-                    corona_data.symptoms != "―")
-            ).count()
-        ),
-        "摂津市": (
-            corona_data.query.filter(
-                corona_data.place == "摂津市"
-            ).count(),
-            corona_data.query.filter(
-                and_(
-                    corona_data.place == "摂津市",
-                    corona_data.symptoms != "―")
-            ).count()
-        ),
-        "枚方市": (
-            corona_data.query.filter(
-                corona_data.place == "枚方市"
-            ).count(),
-            corona_data.query.filter(
-                and_(
-                    corona_data.place == "枚方市",
-                    corona_data.symptoms != "―")
-            ).count()
-        ),
-        "交野市": (
-            corona_data.query.filter(
-                corona_data.place == "交野市"
-            ).count(),
-            corona_data.query.filter(
-                and_(
-                    corona_data.place == "交野市",
-                    corona_data.symptoms != "―")
-            ).count()
-        ),
-        "寝屋川市": (
-            corona_data.query.filter(
-                corona_data.place == "寝屋川市"
-            ).count(),
-            corona_data.query.filter(
-                and_(
-                    corona_data.place == "寝屋川市",
-                    corona_data.symptoms != "―")
-            ).count()
-        ),
-        "守口市": (
-            corona_data.query.filter(
-                corona_data.place == "守口市"
-            ).count(),
-            corona_data.query.filter(
-                and_(
-                    corona_data.place == "守口市",
-                    corona_data.symptoms != "―")
-            ).count()
-        ),
-        "門真市": (
-            corona_data.query.filter(
-                corona_data.place == "門真市"
-            ).count(),
-            corona_data.query.filter(
-                and_(
-                    corona_data.place == "門真市",
-                    corona_data.symptoms != "―")
-            ).count()
-        ),
-        "四條畷市": (
-            corona_data.query.filter(
-                corona_data.place == "四條畷市"
-            ).count(),
-            corona_data.query.filter(
-                and_(
-                    corona_data.place == "四條畷市",
-                    corona_data.symptoms != "―")
-            ).count()
-        ),
-        "大東市": (
-            corona_data.query.filter(
-                corona_data.place == "大東市"
-            ).count(),
-            corona_data.query.filter(
-                and_(
-                    corona_data.place == "大東市",
-                    corona_data.symptoms != "―")
-            ).count()
-        ),
-        "東大阪市": (
-            corona_data.query.filter(
-                corona_data.place == "東大阪市"
-            ).count(),
-            corona_data.query.filter(
-                and_(
-                    corona_data.place == "東大阪市",
-                    corona_data.symptoms != "―")
-            ).count()
-        ),
-        "八尾市": (
-            corona_data.query.filter(
-                corona_data.place == "八尾市"
-            ).count(),
-            corona_data.query.filter(
-                and_(
-                    corona_data.place == "八尾市",
-                    corona_data.symptoms != "―")
-            ).count()
-        ),
-        "柏原市": (
-            corona_data.query.filter(
-                corona_data.place == "柏原市"
-            ).count(),
-            corona_data.query.filter(
-                and_(
-                    corona_data.place == "柏原市",
-                    corona_data.symptoms != "―")
-            ).count()
-        ),
-        "和泉市": (
-            corona_data.query.filter(
-                corona_data.place == "和泉市"
-            ).count(),
-            corona_data.query.filter(
-                and_(
-                    corona_data.place == "和泉市",
-                    corona_data.symptoms != "―")
-            ).count()
-        ),
-        "高石市": (
-            corona_data.query.filter(
-                corona_data.place == "高石市"
-            ).count(),
-            corona_data.query.filter(
-                and_(
-                    corona_data.place == "高石市",
-                    corona_data.symptoms != "―")
-            ).count()
-        ),
-        "泉大津市": (
-            corona_data.query.filter(
-                corona_data.place == "泉大津市"
-            ).count(),
-            corona_data.query.filter(
-                and_(
-                    corona_data.place == "泉大津市",
-                    corona_data.symptoms != "―")
-            ).count()
-        ),
-        "忠岡町": (
-            corona_data.query.filter(
-                corona_data.place == "忠岡町"
-            ).count(),
-            corona_data.query.filter(
-                and_(
-                    corona_data.place == "忠岡町",
-                    corona_data.symptoms != "―")
-            ).count()
-        ),
-        "岸和田市": (
-            corona_data.query.filter(
-                corona_data.place == "岸和田市"
-            ).count(),
-            corona_data.query.filter(
-                and_(
-                    corona_data.place == "岸和田市",
-                    corona_data.symptoms != "―")
-            ).count()
-        ),
-        "貝塚市": (
-            corona_data.query.filter(
-                corona_data.place == "貝塚市"
-            ).count(),
-            corona_data.query.filter(
-                and_(
-                    corona_data.place == "貝塚市",
-                    corona_data.symptoms != "―")
-            ).count()
-        ),
-        "熊取町": (
-            corona_data.query.filter(
-                corona_data.place == "熊取町"
-            ).count(),
-            corona_data.query.filter(
-                and_(
-                    corona_data.place == "熊取町",
-                    corona_data.symptoms != "―")
-            ).count()
-        ),
-        "泉佐野市": (
-            corona_data.query.filter(
-                corona_data.place == "泉佐野市"
-            ).count(),
-            corona_data.query.filter(
-                and_(
-                    corona_data.place == "泉佐野市",
-                    corona_data.symptoms != "―")
-            ).count()
-        ),
-        "田尻町": (
-            corona_data.query.filter(
-                corona_data.place == "田尻町"
-            ).count(),
-            corona_data.query.filter(
-                and_(
-                    corona_data.place == "田尻町",
-                    corona_data.symptoms != "―")
-            ).count()
-        ),
-        "泉南市": (
-            corona_data.query.filter(
-                corona_data.place == "泉南市"
-            ).count(),
-            corona_data.query.filter(
-                and_(
-                    corona_data.place == "泉南市",
-                    corona_data.symptoms != "―")
-            ).count()
-        ),
-        "阪南市": (
-            corona_data.query.filter(
-                corona_data.place == "阪南市"
-            ).count(),
-            corona_data.query.filter(
-                and_(
-                    corona_data.place == "阪南市",
-                    corona_data.symptoms != "―")
-            ).count()
-        ),
-        "岬町": (
-            corona_data.query.filter(
-                corona_data.place == "岬町"
-            ).count(),
-            corona_data.query.filter(
-                and_(
-                    corona_data.place == "岬町",
-                    corona_data.symptoms != "―")
-            ).count()
-        ),
-        "松原市": (
-            corona_data.query.filter(
-                corona_data.place == "松原市"
-            ).count(),
-            corona_data.query.filter(
-                and_(
-                    corona_data.place == "松原市",
-                    corona_data.symptoms != "―")
-            ).count()
-        ),
-        "羽曳野市": (
-            corona_data.query.filter(
-                corona_data.place == "羽曳野市"
-            ).count(),
-            corona_data.query.filter(
-                and_(
-                    corona_data.place == "羽曳野市",
-                    corona_data.symptoms != "―")
-            ).count()
-        ),
-        "藤井寺市": (
-            corona_data.query.filter(
-                corona_data.place == "藤井寺市"
-            ).count(),
-            corona_data.query.filter(
-                and_(
-                    corona_data.place == "藤井寺市",
-                    corona_data.symptoms != "―")
-            ).count()
-        ),
-        "太子町": (
-            corona_data.query.filter(
-                corona_data.place == "太子町"
-            ).count(),
-            corona_data.query.filter(
-                and_(
-                    corona_data.place == "太子町",
-                    corona_data.symptoms != "―")
-            ).count()
-        ),
-        "河南町": (
-            corona_data.query.filter(
-                corona_data.place == "河南町"
-            ).count(),
-            corona_data.query.filter(
-                and_(
-                    corona_data.place == "河南町",
-                    corona_data.symptoms != "―")
-            ).count()
-        ),
-        "千早赤阪村": (
-            corona_data.query.filter(
-                corona_data.place == "千早赤阪村"
-            ).count(),
-            corona_data.query.filter(
-                and_(
-                    corona_data.place == "千早赤阪村",
-                    corona_data.symptoms != "―")
-            ).count()
-        ),
-        "富田林市": (
-            corona_data.query.filter(
-                corona_data.place == "富田林市"
-            ).count(),
-            corona_data.query.filter(
-                and_(
-                    corona_data.place == "富田林市",
-                    corona_data.symptoms != "―")
-            ).count()
-        ),
-        "大阪狭山市": (
-            corona_data.query.filter(
-                corona_data.place == "大阪狭山市"
-            ).count(),
-            corona_data.query.filter(
-                and_(
-                    corona_data.place == "大阪狭山市",
-                    corona_data.symptoms != "―")
-            ).count()
-        ),
-        "河内長野市": (
-            corona_data.query.filter(
-                corona_data.place == "河内長野市"
-            ).count(),
-            corona_data.query.filter(
-                and_(
-                    corona_data.place == "河内長野市",
-                    corona_data.symptoms != "―")
-            ).count()
-        )
+        "大阪市": get_data("大阪市"),
+        "堺市": get_data("堺市"),
+        "能勢町": get_data("能勢町"),
+        "豊能町": get_data("豊能町"),
+        "池田市": get_data("池田市"),
+        "箕面市": get_data("箕面市"),
+        "豊中市": get_data("豊中市"),
+        "茨木市": get_data("茨木市"),
+        "高槻市": get_data("高槻市"),
+        "島本町": get_data("島本町"),
+        "吹田市": get_data("吹田市"),
+        "摂津市": get_data("摂津市"),
+        "枚方市": get_data("枚方市"),
+        "交野市": get_data("交野市"),
+        "寝屋川市": get_data("寝屋川市"),
+        "守口市": get_data("守口市"),
+        "門真市": get_data("門真市"),
+        "四條畷市": get_data("四條畷市"),
+        "大東市": get_data("大東市"),
+        "東大阪市": get_data("東大阪市"),
+        "八尾市": get_data("八尾市"),
+        "柏原市": get_data("柏原市"),
+        "和泉市": get_data("和泉市"),
+        "高石市": get_data("高石市"),
+        "泉大津市": get_data("泉大津市"),
+        "忠岡町": get_data("忠岡町"),
+        "岸和田市": get_data("岸和田市"),
+        "貝塚市": get_data("貝塚市"),
+        "熊取町": get_data("熊取町"),
+        "泉佐野市": get_data("泉佐野市"),
+        "田尻町": get_data("田尻町"),
+        "泉南市": get_data("泉南市"),
+        "阪南市": get_data("阪南市"),
+        "岬町": get_data("岬町"),
+        "松原市": get_data("松原市"),
+        "羽曳野市": get_data("羽曳野市"),
+        "藤井寺市": get_data("藤井寺市"),
+        "太子町": get_data("太子町"),
+        "河南町": get_data("河南町"),
+        "千早赤阪村": get_data("千早赤阪村"),
+        "富田林市": get_data("富田林市"),
+        "大阪狭山市": get_data("大阪狭山市"),
+        "河内長野市": get_data("河内長野市")
     }
     people_dict = {
         "未就学児": corona_data.query.filter(
