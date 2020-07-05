@@ -2,19 +2,21 @@
 
 from openpyxl import load_workbook
 import requests
-from sqlalchemy.dialects.postgresql import insert
+# from sqlalchemy.dialects.postgresql import insert
 
 import datetime
 import pathlib
+import zipfile
 
+"""
 from models.database import engine
 from models.models import corona_data
+"""
 
 
 def update_database():
     url = (
-        "http://www.pref.osaka.lg.jp/"
-        "attach/23711/00346644/youseisyajyouhou.xlsx"
+        "https://github.com/codeforosaka/covid19/archive/master.zip"
     )
     download_file = requests.get(url)
     # ファイルを保存するパスの指定と存在確認
@@ -23,10 +25,14 @@ def update_database():
     ).resolve()
     if path.exists() is False:
         path.mkdir()
-    path = path.joinpath("corona.xlsx")
+    path = path.joinpath("corona.zip")
     with path.open(mode="wb") as f:
         f.write(download_file.content)
-    wb = load_workbook(filename=str(path), data_only=True)
+    with zipfile.ZipFile(path) as existing_zip:
+        existing_zip.extractall(path.joinpath("..", "data"))
+    wb = load_workbook(filename=str(path.joinpath(
+        "..", "data", "covid19-master", 
+    )), data_only=True)
     ws = wb.get_sheet_by_name("Sheet1")
     r_list = []
     for r in range(3, ws.max_row + 1):
@@ -69,3 +75,7 @@ def update_database():
             # data["hospitalization"] = r_list[i][7]
             values.append(data)
         conn.execute(insert_stmt, values)
+
+
+if __name__ == "__main__":
+    update_database()
