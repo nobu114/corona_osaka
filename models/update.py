@@ -6,7 +6,6 @@ from sqlalchemy.dialects.postgresql import insert
 
 import datetime
 import pathlib
-import zipfile
 
 
 from models.database import engine
@@ -15,7 +14,9 @@ from models.models import corona_data
 
 def update_database():
     url = (
-        "https://github.com/codeforosaka/covid19/archive/master.zip"
+        # 大阪府のコロナ特設サイトのgithubのエクセルのファイルのリンク。
+        "https://github.com/codeforosaka/covid19/raw/"
+        "master/data/patients_and_inspections.xlsx"
     )
     download_file = requests.get(url)
     # ファイルを保存するパスの指定と存在確認
@@ -24,22 +25,22 @@ def update_database():
     ).resolve()
     if path.exists() is False:
         path.mkdir()
-    path = path.joinpath("corona.zip")
+    path = path.joinpath("corona.xlsx")
     with path.open(mode="wb") as f:
         f.write(download_file.content)
-    with zipfile.ZipFile(path) as existing_zip:
-        existing_zip.extractall(path.joinpath("..", "data"))
-    print(path.joinpath(
-        "..", "data", "covid19-master", "data",
-        "patients_and_inspections.xlsx"))
-    wb = load_workbook(filename=str(path.joinpath(
-        "..", "data", "covid19-master", "patients_and_inspections.xlsx"
-    ).absolute()), data_only=True)
+    wb = load_workbook(filename=str(path), data_only=True)
     ws = wb.worksheets[1]
     r_list = []
+    # +1 する理由 : range関数はrange(start, stop)で
+    # start=< i <stopの連番を作成する。
+    # 追加のメモ。max_row, columnはデータが無くとも書式が設定されていれば
+    # 反応する
     for r in range(3, ws.max_row + 1):
         r_tpl = ()
-        for c in range(1, ws.max_column):
+        tmp = ws.cell(r, 1).value
+        if tmp is None:
+            break
+        for c in range(1, ws.max_column + 1):
             value = ws.cell(r, c).value
             if c == 2:
                 value = datetime.date(
@@ -65,7 +66,7 @@ def update_database():
     )
     with engine.connect() as conn:
         values = []
-        for i in range(0, ws.max_row - 2):
+        for i in range(0, len(r_list) + 1):
             data = {}
             data["index"] = r_list[i][0]
             data["publish_d"] = r_list[i][1]
