@@ -29,9 +29,18 @@ def update_database():
         f.write(download_file.content)
     with zipfile.ZipFile(path) as existing_zip:
         existing_zip.extractall(path.joinpath("..", "data"))
+    print(path.joinpath(
+        "..", "data", "covid19-master", "data",
+        "patients_and_inspections.xlsx"))
     wb = load_workbook(filename=str(path.joinpath(
+<<<<<<< HEAD
         "..", "data", "covid19-master", "patients_and_inspections.xlsx"
     ).absolute()), data_only=True)
+=======
+        "..", "data", "covid19-master", "data",
+        "patients_and_inspections.xlsx"
+    )), data_only=True)
+>>>>>>> master
     ws = wb.worksheets[1]
     r_list = []
     for r in range(3, ws.max_row + 1):
