@@ -66,7 +66,7 @@ def update_database():
     )
     with engine.connect() as conn:
         values = []
-        for i in range(0, len(r_list) + 1):
+        for i in range(0, len(r_list)):
             data = {}
             data["index"] = r_list[i][0]
             data["publish_d"] = r_list[i][1]
