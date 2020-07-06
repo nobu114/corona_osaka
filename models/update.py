@@ -6,6 +6,8 @@ from sqlalchemy.dialects.postgresql import insert
 
 import datetime
 import pathlib
+import zipfile
+
 
 from models.database import engine
 from models.models import corona_data
@@ -13,8 +15,7 @@ from models.models import corona_data
 
 def update_database():
     url = (
-        "http://www.pref.osaka.lg.jp/"
-        "attach/23711/00346644/youseisyajyouhou.xlsx"
+        "https://github.com/codeforosaka/covid19/archive/master.zip"
     )
     download_file = requests.get(url)
     # ファイルを保存するパスの指定と存在確認
@@ -23,11 +24,15 @@ def update_database():
     ).resolve()
     if path.exists() is False:
         path.mkdir()
-    path = path.joinpath("corona.xlsx")
+    path = path.joinpath("corona.zip")
     with path.open(mode="wb") as f:
         f.write(download_file.content)
-    wb = load_workbook(filename=str(path), data_only=True)
-    ws = wb.get_sheet_by_name("Sheet1")
+    with zipfile.ZipFile(path) as existing_zip:
+        existing_zip.extractall(path.joinpath("..", "data"))
+    wb = load_workbook(filename=str(path.joinpath(
+        "..", "data", "covid19-master", patients_and_inspections.xlsx 
+    )), data_only=True)
+    ws = wb.worksheets[1]
     r_list = []
     for r in range(3, ws.max_row + 1):
         r_tpl = ()
@@ -50,7 +55,7 @@ def update_database():
         place=insert_stmt.excluded.place,
         date_of_onset=insert_stmt.excluded.date_of_onset,
         symptoms=insert_stmt.excluded.symptoms
-        # hospitalization=insert_stmt.excluded.hospitalization
+        hospitalization=insert_stmt.excluded.hospitalization
     )
     insert_stmt = insert_stmt.on_conflict_do_update(
         index_elements=["index"], set_=set_
@@ -66,6 +71,7 @@ def update_database():
             data["place"] = r_list[i][4]
             data["date_of_onset"] = r_list[i][5]
             data["symptoms"] = r_list[i][6]
-            # data["hospitalization"] = r_list[i][7]
+            data["hospitalization"] = r_list[i][7]
             values.append(data)
         conn.execute(insert_stmt, values)
+
