@@ -29,8 +29,12 @@ def update_database():
         f.write(download_file.content)
     with zipfile.ZipFile(path) as existing_zip:
         existing_zip.extractall(path.joinpath("..", "data"))
+    print(path.joinpath(
+        "..", "data", "covid19-master", "data",
+        "patients_and_inspections.xlsx"))
     wb = load_workbook(filename=str(path.joinpath(
-        "..", "data", "covid19-master", patients_and_inspections.xlsx 
+        "..", "data", "covid19-master", "data",
+        "patients_and_inspections.xlsx"
     )), data_only=True)
     ws = wb.worksheets[1]
     r_list = []
@@ -54,7 +58,7 @@ def update_database():
         gender=insert_stmt.excluded.gender,
         place=insert_stmt.excluded.place,
         date_of_onset=insert_stmt.excluded.date_of_onset,
-        symptoms=insert_stmt.excluded.symptoms
+        symptoms=insert_stmt.excluded.symptoms,
         hospitalization=insert_stmt.excluded.hospitalization
     )
     insert_stmt = insert_stmt.on_conflict_do_update(
