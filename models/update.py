@@ -16,7 +16,7 @@ def update_database():
     url = (
         # 大阪府のコロナ特設サイトのgithubのエクセルのファイルのリンク。
         "https://github.com/codeforosaka/covid19/raw/"
-        "master/data/patients_and_inspections.xlsx"
+        "data-bot/development/data/patients_and_inspections.xlsx"
     )
     download_file = requests.get(url)
     # ファイルを保存するパスの指定と存在確認
