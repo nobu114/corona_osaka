@@ -3,10 +3,12 @@ FROM python:3.8.5-slim-buster
 
 RUN mkdir -p /app/config
 COPY requirements.txt /app/requirements.txt
+COPY app/ /app/app/
+COPY models/ /app/models/
 
 RUN pip install -r requirements.txt
 
-ESXPOSE 9876
+EXPOSE 9876
 
 WORKDIR /app
 
