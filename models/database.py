@@ -7,7 +7,7 @@ import os
 user_name = os.environ["db_user_name"]
 password = os.environ["db_password"]
 engine = create_engine(
-    f"postgresql://{user_name}:{password}@localhost:5432/corona",
+    f"postgresql://{user_name}:{password}@psql-server:5432/corona",
     client_encoding="utf8"
 )
 db_session = scoped_session(
