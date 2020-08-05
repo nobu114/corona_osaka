@@ -28,6 +28,16 @@ services:
       depends_on:
         - app-server
       restart: always
+  db:
+    image: postgres
+    container_name: postgresql
+    ports:
+      5000:5000
+    volumes:
+      - 
+    restart: always
+    environment:
+      
 
 networks:
   my_host_network:
