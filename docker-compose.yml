@@ -1,0 +1,36 @@
+version: "3.8"
+services:
+#app serverの設定#
+  app-server:
+    container_name: app-server
+    build:
+      context: ./
+      dokerfile: ./dockerfiles/app_server.dockerfile
+      networks:
+        my_host_network:
+          aliases:
+            - py-server
+      expose:
+        - 9876
+      restart: always
+
+  web-server:
+    container_name: web-server
+    build:
+      context: ./
+      dockerfile: dockerfiles/nginx_product.dockerfile
+    networks:
+      my_host_network:
+        aliases:
+          - nginx-server
+      ports:
+        - 4443:443
+      depends_on:
+        - app-server
+      restart: always
+
+networks:
+  my_host_network:
+    name: my-nginx-network
+    driver: bridge
+
