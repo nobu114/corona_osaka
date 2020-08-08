@@ -16,4 +16,4 @@ EXPOSE 9876
 WORKDIR /app
 
 
-ENTRYPOINT ["gunicorn", "flask_app:app"]
+ENTRYPOINT ["gunicorn", "app.app:app"]

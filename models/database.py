@@ -4,8 +4,8 @@ from sqlalchemy.ext.declarative import declarative_base
 import os
 
 
-user_name = os.environ["db_user_name"]
-password = os.environ["db_password"]
+user_name = os.environ["POSTGRES_USER"]
+password = os.environ["POSTGRES_PASSWORD"]
 engine = create_engine(
     f"postgresql://{user_name}:{password}@psql-server:5432/corona",
     client_encoding="utf8"

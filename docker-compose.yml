@@ -12,23 +12,22 @@ services:
           - py-server
     expose:
       - 9876
-    restart: always
+#    restart: always
 
   web-server:
     container_name: web-server
     build:
       context: ./
-      dockerfile: dockerfiles/nginx_product.dockerfile
+      dockerfile: dockerfiles/nginx_develop.dockerfile
     networks:
       my_host_network:
         aliases:
           - nginx-server
     ports:
-      - 4443:443
       - 8080:80
-    depends_on:
-      - app-server
-    restart: always
+#    depends_on:
+#      - app-server
+#    restart: always
   db:
     container_name: postgresql
     build:
@@ -42,10 +41,10 @@ services:
       - 5432
 #    volumes:
 #      - postgres/var/:/var/lib/postgresql/data
-    restart: always
+#    restart: always
     environment:
-      - POSTGRES_USER
-      - POSTGRES_PASSWORD
+      - POSTGRES_USER=POSTGRES_USERS
+      - POSTGRES_PASSWORD=POSTGRES_PASSWORD
 
       
 
