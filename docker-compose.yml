@@ -10,6 +10,9 @@ services:
       my_host_network:
         aliases:
           - py-server
+    environment:
+      - POSTGRES_USER=POSTGRES_USERS
+      - POSTGRES_PASSWORD=POSTGRES_PASSWORD
     expose:
       - 9876
 #    restart: always
