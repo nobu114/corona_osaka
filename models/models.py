@@ -1,7 +1,12 @@
 from sqlalchemy import (
     Column, Integer, Text, DateTime
 )
-from models.database import Base
+from models.database import db
+from models.auth_data import get_user_pass
+
+
+user_name, password = get_user_pass()
+Base = db(user_name, password).connect_or_setup().Base
 
 
 class corona_data(Base):

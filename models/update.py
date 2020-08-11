@@ -2,14 +2,20 @@
 
 from openpyxl import load_workbook
 import requests
+from sqlalchemy import engine
 from sqlalchemy.dialects.postgresql import insert
 
 import datetime
 import pathlib
 
 
-from models.database import engine
+from models.database import db
 from models.models import corona_data
+from models.auth_data import get_user_pass
+
+
+user_name, password = get_user_pass()
+engine = db(user_name, password).connect_or_setup().engine
 
 
 def update_database():
