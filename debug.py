@@ -20,4 +20,4 @@ thread_0 = threading.Thread(target=job_manager)
 thread_0.start()
 """
 if __name__ == "__main__":
-    app.run(debug=True, port=5000)
+    app.run(debug=True, port=9876, host="0.0.0.0")
