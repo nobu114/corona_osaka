@@ -17,6 +17,7 @@ def update_database():
         "https://github.com/codeforosaka/covid19/raw/"
         "data-bot/development/data/patients_and_inspections.xlsx"
     )
+    print("Downloading")
     download_file = requests.get(url)
     # ファイルを保存するパスの指定と存在確認
     path = pathlib.Path(__file__).joinpath(
@@ -34,12 +35,15 @@ def update_database():
     # start=< i <stopの連番を作成する。
     # 追加のメモ。max_row, columnはデータが無くとも書式が設定されていれば
     # 反応する
+    print("loading file...")
     for r in range(3, ws.max_row + 1):
+        print(f"{r}:")
         r_tpl = ()
         tmp = ws.cell(r, 1).value
         if tmp is None:
             break
         for c in range(1, ws.max_column + 1):
+            print(c)
             value = ws.cell(r, c).value
             if c == 2:
                 value = datetime.date(
@@ -63,6 +67,7 @@ def update_database():
     insert_stmt = insert_stmt.on_conflict_do_update(
         index_elements=["index"], set_=set_
     )
+    print("insert now...")
     with engine.connect() as conn:
         values = []
         for i in range(0, len(r_list)):
@@ -77,3 +82,4 @@ def update_database():
             data["hospitalization"] = r_list[i][7]
             values.append(data)
         conn.execute(insert_stmt, values)
+    print("successfully!!")
