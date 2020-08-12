@@ -15,22 +15,19 @@ services:
       - POSTGRES_PASSWORD=POSTGRES_PASSWORD
     expose:
       - 9876
-#    restart: always
 
   web-server:
     container_name: web-server
     build:
       context: ./
-      dockerfile: dockerfiles/nginx_develop.dockerfile
+      dockerfile: dockerfiles/nginx.dockerfile
     networks:
       my_host_network:
         aliases:
           - nginx-server
     ports:
       - 8080:80
-#    depends_on:
-#      - app-server
-#    restart: always
+
   db:
     container_name: postgresql
     build:

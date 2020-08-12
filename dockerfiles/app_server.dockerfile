@@ -13,6 +13,4 @@ EXPOSE 9876
 WORKDIR /app
 
 
-# ENTRYPOINT ["gunicorn", "-b", ":9876", "app.app:app"]
-COPY debug.py /app/debug.py
-ENTRYPOINT ["python3", "debug.py"]
+ENTRYPOINT ["gunicorn", "-b", ":9876", "app.app:app"]
