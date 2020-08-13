@@ -1,33 +1,6 @@
 version: "3.8"
 services:
-#app serverの設定#
-  app-server:
-    container_name: app-server
-    build:
-      context: ./
-      dockerfile: dockerfiles/app_server.dockerfile
-    networks:
-      my_host_network:
-        aliases:
-          - py-server
-    environment:
-      - POSTGRES_USER=POSTGRES_USERS
-      - POSTGRES_PASSWORD=POSTGRES_PASSWORD
-    expose:
-      - 9876
-
-  web-server:
-    container_name: web-server
-    build:
-      context: ./
-      dockerfile: dockerfiles/nginx.dockerfile
-    networks:
-      my_host_network:
-        aliases:
-          - nginx-server
-    ports:
-      - 8080:80
-
+#postgresqlの設定
   db:
     container_name: postgresql
     build:
@@ -45,9 +18,49 @@ services:
     environment:
       - POSTGRES_USER=POSTGRES_USERS
       - POSTGRES_PASSWORD=POSTGRES_PASSWORD
+#dbの初期化設定もしくは中身のアップデート
+  setup:
+    container_name: db_setup
+    build:
+      context: ./
+      dockerfile: dockerfiles/setup.dockerfile
+    networks:
+      my_host_network:
+        aliases:
+          - setup_man
+    environment:
+      - POSTGRES_USER=POSTGRES_USERS
+      - POSTGRES_PASSWORD=POSTGRES_PASSWORD
+    entrypoint: ["python3", "/app/setup_or_update.py"]
+#app serverの設定#
+  app-server:
+    container_name: app-server
+    build:
+      context: ./
+      dockerfile: dockerfiles/app_server.dockerfile
+    networks:
+      my_host_network:
+        aliases:
+          - py-server
+    environment:
+      - POSTGRES_USER=POSTGRES_USERS
+      - POSTGRES_PASSWORD=POSTGRES_PASSWORD
+    expose:
+      - 9876
+#nginxの設定
+  web-server:
+    container_name: web-server
+    build:
+      context: ./
+      dockerfile: dockerfiles/nginx.dockerfile
+    networks:
+      my_host_network:
+        aliases:
+          - nginx-server
+    ports:
+      - 8080:80
 
-      
-
+#ネットワーク作成
 networks:
   my_host_network:
     name: my-nginx-network

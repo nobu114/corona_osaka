@@ -5,7 +5,7 @@ RUN mkdir -p /app/config
 COPY requirements.txt /app/requirements.txt
 COPY app/ /app/app/
 COPY models/ /app/models/
-COPY setup_or_update.py /app/setup_or_update.py
+# COPY setup_or_update.py /app/setup_or_update.py
 
 RUN pip install -r /app/requirements.txt
 
