@@ -16,8 +16,8 @@ services:
 #      - postgres/var/:/var/lib/postgresql/data
 #    restart: always
     environment:
-      - POSTGRES_USER=POSTGRES_USERS
-      - POSTGRES_PASSWORD=POSTGRES_PASSWORD
+      - POSTGRES_USER
+      - POSTGRES_PASSWORD
 #dbの初期化設定もしくは中身のアップデート
   setup:
     container_name: db_setup
@@ -29,8 +29,8 @@ services:
         aliases:
           - setup_man
     environment:
-      - POSTGRES_USER=POSTGRES_USERS
-      - POSTGRES_PASSWORD=POSTGRES_PASSWORD
+      - POSTGRES_USER
+      - POSTGRES_PASSWORD
     entrypoint: ["python3", "/app/setup_or_update.py"]
 #app serverの設定#
   app-server:
@@ -43,8 +43,8 @@ services:
         aliases:
           - py-server
     environment:
-      - POSTGRES_USER=POSTGRES_USERS
-      - POSTGRES_PASSWORD=POSTGRES_PASSWORD
+      - POSTGRES_USER
+      - POSTGRES_PASSWORD
     expose:
       - 9876
 #nginxの設定
