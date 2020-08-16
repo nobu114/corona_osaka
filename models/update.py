@@ -36,15 +36,12 @@ def update_database():
     # 追加のメモ。max_row, columnはデータが無くとも書式が設定されていれば
     # 反応する
     print("loading file...")
-    for r in range(3, ws.max_row + 1):
+    for r in ws.iter_rows(min_row=3):
         print(f"{r}:")
-        r_tpl = ()
-        tmp = ws.cell(r, 1).value
-        if tmp is None:
-            break
-        for c in range(1, ws.max_column + 1):
+        for c in r:
             print(c)
-            value = ws.cell(r, c).value
+            value = c.value
+            """
             if c == 2:
                 value = datetime.date(
                     year=1900, month=1, day=1
@@ -52,7 +49,8 @@ def update_database():
             if isinstance(value, datetime.datetime):
                 value = value.date()
             r_tpl += (value, )
-        r_list.append(r_tpl)
+            """
+            r_list.append(value)
     insert_stmt = insert(corona_data)
     set_ = dict(
         index=insert_stmt.excluded.index,
