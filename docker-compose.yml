@@ -33,6 +33,8 @@ services:
       - POSTGRES_USER
       - POSTGRES_PASSWORD
     entrypoint: ["python3", "/app/setup_or_update.py"]
+    depends_on:
+      - db
 #app serverの設定#
   app-server:
     container_name: app-server
@@ -48,6 +50,8 @@ services:
       - POSTGRES_PASSWORD
     expose:
       - 9876
+    depends_on:
+      - db
 #nginxの設定
   web-server:
     container_name: web-server
@@ -60,6 +64,8 @@ services:
           - nginx-server
     ports:
       - 8080:80
+    depends_on:
+      - app-server
 
 #ネットワーク作成
 networks:
