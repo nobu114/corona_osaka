@@ -32,7 +32,6 @@ services:
     environment:
       - POSTGRES_USER
       - POSTGRES_PASSWORD
-    entrypoint: ["python3", "/app/setup_or_update.py"]
     depends_on:
       - db
     tty: true
