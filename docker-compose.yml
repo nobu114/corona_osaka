@@ -21,7 +21,7 @@ services:
     tty: true
 #dbの初期化設定もしくは中身のアップデート
   setup:
-    container_name: db_setup
+    container_name: setup
     build:
       context: ./
       dockerfile: dockerfiles/setup.dockerfile
