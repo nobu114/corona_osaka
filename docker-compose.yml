@@ -34,7 +34,6 @@ services:
       - POSTGRES_PASSWORD
     depends_on:
       - db
-    tty: true
 #app serverの設定#
   app-server:
     container_name: app-server

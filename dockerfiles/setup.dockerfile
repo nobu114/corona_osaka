@@ -6,5 +6,5 @@ COPY setup_or_update.py /app/setup_or_update.py
 COPY models/ /app/models/
 WORKDIR /app
 RUN pip install -r requirements.txt
-ENTRYPOINT ["python","setup_or_update.py"]
+ENTRYPOINT ["python", "setup_or_update.py"]
 
