@@ -42,7 +42,7 @@ def update_database():
         tmp = ws.cell(r, 1).value
         if tmp is None:
             break
-        for c in range(1, ws.max_column + 1):
+        for c in range(1, 8):
             print(c)
             value = ws.cell(r, c).value
             if c == 2:
