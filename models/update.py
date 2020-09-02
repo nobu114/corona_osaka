@@ -15,7 +15,7 @@ def update_database():
     url = (
         # 大阪府のコロナ特設サイトのgithubのエクセルのファイルのリンク。
         "https://github.com/codeforosaka/covid19/raw/"
-        "data-bot/development/data/patients_and_inspections.xlsx"
+        "master/data/patients_and_inspections.xlsx"
     )
     print("Downloading")
     download_file = requests.get(url)
@@ -36,12 +36,15 @@ def update_database():
     # 追加のメモ。max_row, columnはデータが無くとも書式が設定されていれば
     # 反応する
     print("loading file...")
-    for r in ws.iter_rows(min_row=3):
+    for r in range(3, ws.max_row):
         print(f"{r}:")
-        for c in r:
+        r_tpl = ()
+        tmp = ws.cell(r, 1).value
+        if tmp is None:
+            break
+        for c in range(1, 9):
             print(c)
-            value = c.value
-            """
+            value = ws.cell(r, c).value
             if c == 2:
                 value = datetime.date(
                     year=1900, month=1, day=1
@@ -49,8 +52,7 @@ def update_database():
             if isinstance(value, datetime.datetime):
                 value = value.date()
             r_tpl += (value, )
-            """
-            r_list.append(value)
+        r_list.append(r_tpl)
     insert_stmt = insert(corona_data)
     set_ = dict(
         index=insert_stmt.excluded.index,

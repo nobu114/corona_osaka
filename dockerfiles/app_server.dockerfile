@@ -13,6 +13,6 @@ EXPOSE 9876
 
 WORKDIR /app
 
-RUN python3 setup_or_update.py
+# RUN python3 setup_or_update.py
 
 ENTRYPOINT ["gunicorn", "-b", ":9876", "app.app:app"]
