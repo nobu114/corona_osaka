@@ -37,13 +37,13 @@ def update_database():
     # 反応する
     print("loading file...")
     for r in range(3, ws.max_row):
-        print(f"{r}:")
+        #print(f"{r}:")
         r_tpl = ()
         tmp = ws.cell(r, 1).value
         if tmp is None:
             break
         for c in range(1, 9):
-            print(c)
+            #print(c)
             value = ws.cell(r, c).value
             if c == 2:
                 value = datetime.date(
