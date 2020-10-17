@@ -19,7 +19,7 @@ def update_database():
         "master/data/data.json"
     )
     print("Downloading...")
-    
+
     download_file = requests.get(url)
     """
     # ファイルを保存するパスの指定と存在確認
