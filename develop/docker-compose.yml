@@ -13,8 +13,8 @@ services:
     environment:
       - POSTGRES_USER
       - POSTGRES_PASSWORD
-    ports:
-      - 9876:9876
+    expose:
+      - 9876
     tty: true
 
   db:
@@ -33,6 +33,18 @@ services:
       POSTGRES_PASSWORD: passwd
     restart: always
 
+  #nginxの設定#
+  web:
+    container_name: nginx
+    build:
+      context: ./
+      dockerfile: nginx.dockerfile
+    networks:
+      my_host_network:
+        aliases: web-server
+    ports:
+      - 4443:443
+      
 
 networks:
   my_host_network:
