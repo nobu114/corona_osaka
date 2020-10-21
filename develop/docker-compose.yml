@@ -41,7 +41,8 @@ services:
       dockerfile: nginx.dockerfile
     networks:
       my_host_network:
-        aliases: web-server
+        aliases:
+          - nginx
     ports:
       - 4443:443
       
