@@ -1,0 +1,54 @@
+version: "3.8"
+services:
+#app serverの設定#
+  app-server:
+    container_name: app-server
+    build:
+      context: ./
+      dockerfile: app_server.dockerfile
+    networks:
+      my_host_network:
+        aliases:
+          - py-server
+    environment:
+      - POSTGRES_USER
+      - POSTGRES_PASSWORD
+    expose:
+      - 9876
+    tty: true
+
+  db:
+    container_name: postgresql
+    build:
+      context: ./
+      dockerfile: postgres.dockerfile
+    networks:
+      my_host_network:
+        aliases:
+          - psql-server
+    expose:
+      - 5432
+    environment:
+      POSTGRES_USER: User
+      POSTGRES_PASSWORD: passwd
+    restart: always
+
+  #nginxの設定#
+  web:
+    container_name: nginx
+    build:
+      context: ./
+      dockerfile: nginx.dockerfile
+    networks:
+      my_host_network:
+        aliases:
+          - nginx
+    ports:
+      - 4443:443
+      
+
+networks:
+  my_host_network:
+    name: my-nginx-network
+    driver: bridge
+
