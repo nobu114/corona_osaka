@@ -13,8 +13,8 @@ services:
     environment:
       - POSTGRES_USER
       - POSTGRES_PASSWORD
-    ports:
-      - 9876:9876
+    expose:
+      - 9876
     tty: true
 
   db:
@@ -28,14 +28,23 @@ services:
           - psql-server
     expose:
       - 5432
-#    volumes:
-#      - postgres/var/:/var/lib/postgresql/data
-#    restart: always
     environment:
-      - POSTGRES_USER
-      - POSTGRES_PASSWORD
-    tty: true
+      POSTGRES_USER: User
+      POSTGRES_PASSWORD: passwd
+    restart: always
 
+  #nginxの設定#
+  web:
+    container_name: nginx
+    build:
+      context: ./
+      dockerfile: nginx.dockerfile
+    networks:
+      my_host_network:
+        aliases:
+          - nginx
+    ports:
+      - 4443:443
       
 
 networks:

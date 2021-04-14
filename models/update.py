@@ -6,6 +6,7 @@ from sqlalchemy.dialects.postgresql import insert
 
 import datetime
 import pathlib
+import json
 
 from models.database import engine
 from models.models import corona_data
@@ -13,21 +14,41 @@ from models.models import corona_data
 
 def update_database():
     url = (
-        # 大阪府のコロナ特設サイトのgithubのエクセルのファイルのリンク。
+        # 大阪府のコロナ特設サイトのgithubのjsonファイルのリンク。
         "https://github.com/codeforosaka/covid19/raw/"
-        "master/data/patients_and_inspections.xlsx"
+        "master/data/data.json"
     )
-    print("Downloading")
+    print("Downloading...")
+
     download_file = requests.get(url)
+    """
     # ファイルを保存するパスの指定と存在確認
     path = pathlib.Path(__file__).joinpath(
         "..", "..", "tmp"
     ).resolve()
     if path.exists() is False:
         path.mkdir()
-    path = path.joinpath("corona.xlsx")
+    path = path.joinpath("corona_data.json")
     with path.open(mode="wb") as f:
         f.write(download_file.content)
+    """
+    jsonb = download_file.content
+    json_data = json.loads(jsonb)
+    # print(len(json_data["patients"]["data"]))
+    r_list = []
+    for i in range(len(json_data["patients"]["data"])):
+        r_tpl = ()
+        r_tpl += json_data["patients"]["data"][i][0]
+        r_tpl += json_data["patients"]["data"][i][1]
+        r_tpl += json_data["patients"]["data"][i][2]
+        r_tpl += json_data["patients"]["data"][i][3]
+        r_tpl += json_data["patients"]["data"][i][4]
+        r_tpl += json_data["patients"]["data"][i][5]
+        r_tpl += json_data["patients"]["data"][i][6]
+        r_tpl += json_data["patients"]["data"][i][7]
+        r_list.append(r_tpl)
+
+    """
     wb = load_workbook(filename=str(path), data_only=True)
     ws = wb.worksheets[1]
     r_list = []
@@ -53,6 +74,7 @@ def update_database():
                 value = value.date()
             r_tpl += (value, )
         r_list.append(r_tpl)
+    """
     insert_stmt = insert(corona_data)
     set_ = dict(
         index=insert_stmt.excluded.index,
